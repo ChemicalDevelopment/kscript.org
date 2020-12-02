@@ -12,19 +12,208 @@
 
 
 <!-- highlight.js -->
-<link rel="stylesheet"
-      href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.4.0/styles/default.min.css">
 <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.4.0/highlight.min.js"></script>
 
+<!-- Theme(s): https://highlightjs.org/static/demo/ -->
+
+<!--
+
+<link rel="stylesheet"
+      href="//https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.1/styles/solarized-light.min.css">
+
+<link rel="stylesheet"
+      href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/docco.min.css">
+-->
+
+
+
+      
 <!-- https://highlightjs.readthedocs.io/en/latest/language-guide.html -->
 <script>
 hljs.initHighlightingOnLoad();
 
-
 hljs.registerLanguage("ks", function(e) {
+
+const KEYWORDS = [
+    'as',
+    'assert',
+    'async',
+    'await',
+    'break',
+    'type',
+    'cont',
+    'func',
+    'del',
+    'elif',
+    'else',
+    'catch',
+    'finally',
+    'for',
+    'from',
+    'if',
+    'import',
+    'in',
+    'throw',
+    'ret',
+    'try',
+    'while',
+    'with',
+    'yield',
+];
+
+const BUILTINS = [
+    '__import__',
+    'abs',
+    'all',
+    'any',
+    'ascii',
+    'bin',
+    'bool',
+    'breakpoint',
+    'bytearray',
+    'bytes',
+    'callable',
+    'chr',
+    'classmethod',
+    'compile',
+    'complex',
+    'delattr',
+    'dict',
+    'dir',
+    'divmod',
+    'enumerate',
+    'eval',
+    'exec',
+    'filter',
+    'float',
+    'format',
+    'frozenset',
+    'getattr',
+    'globals',
+    'hasattr',
+    'hash',
+    'help',
+    'hex',
+    'id',
+    'input',
+    'int',
+    'isinstance',
+    'issubclass',
+    'iter',
+    'len',
+    'list',
+    'locals',
+    'map',
+    'max',
+    'memoryview',
+    'min',
+    'next',
+    'object',
+    'oct',
+    'open',
+    'ord',
+    'pow',
+    'print',
+    'property',
+    'range',
+    'repr',
+    'reversed',
+    'round',
+    'set',
+    'setattr',
+    'slice',
+    'sorted',
+    'staticmethod',
+    'str',
+    'sum',
+    'super',
+    'tuple',
+    'type',
+    'vars',
+    'zip',
+];
+
+const LITERALS = [
+    '...',
+    'false', 'true',
+    'none',
+    'undefined',
+    'inf',
+    'nan',
+];
+
+const PROMPT = {
+    className: 'meta',  begin: /^(>>>|\.\.\.) /
+};
+
+const digitpart = '[0-9](_?[0-9])*';
+const pointfloat = `(\\b(${digitpart}))?\\.(${digitpart})|\\b(${digitpart})\\.`;
+const NUMBER = {
+    className: 'number', relevance: 0,
+    variants: [
+        { begin: `(\\b(${digitpart})|(${pointfloat}))[eE][+-]?(${digitpart})[jJ]?\\b` },
+        { begin: `(${pointfloat})[jJ]?` },
+
+        { begin: '\\b([1-9](_?[0-9])*|0+(_?0)*)[jJ]?\\b' },
+        { begin: '\\b0[bB](_?[01])+\\b' },
+        { begin: '\\b0[oO](_?[0-7])+\\b' },
+        { begin: '\\b0[xX](_?[0-9a-fA-F])+\\b' },
+
+        { begin: `\\b(${digitpart})[jJ]\\b` },
+    ]
+};
+
+const STRING = {
+    className: 'string',
+    contains: [hljs.BACKSLASH_ESCAPE],
+    variants: [
+      {
+        begin: /'''/, end: /'''/,
+        contains: [hljs.BACKSLASH_ESCAPE, PROMPT],
+        relevance: 10
+      },
+      {
+        begin: /"""/, end: /"""/,
+        contains: [hljs.BACKSLASH_ESCAPE, PROMPT],
+        relevance: 10
+      },
+      {
+        begin: /'/, end: /'/
+      },
+      {
+        begin: /"/, end: /"/
+      },
+
+      hljs.APOS_STRING_MODE,
+      hljs.QUOTE_STRING_MODE
+    ]
+};
+
     return {
+        name: 'kscript',
         aliases: [ "ks", "kscript" ],
-        keywords: "if else elif else while for try catch finally func type ret break cont"
+        keywords: {
+            keyword: KEYWORDS.join(' '),
+            literal: LITERALS.join(' '),
+            built_in: BUILTINS.join(' '),
+        },
+        contains: [
+            PROMPT,
+            NUMBER,
+            STRING,
+            hljs.HASH_COMMENT_MODE,
+            {
+                variants: [
+                {className: 'function', beginKeywords: 'func'},
+                {className: 'class', beginKeywords: 'type'}
+                ],
+                end: /{/,
+                illegal: /[${;\n,]/,
+                contains: [
+                hljs.UNDERSCORE_TITLE_MODE,
+                ]
+            },
+        ],
     };
 });
         
