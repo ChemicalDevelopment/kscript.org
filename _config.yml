@@ -1,7 +1,7 @@
 
 title: kscript docs
 description: A programming language for people
-baseurl: "/"
+baseurl: ""
 url: "https://kscript.org"
 version: 0.0.1
 
@@ -83,8 +83,10 @@ plugins:
 kramdown:
   syntax_highlighter_opts:
     block:
+      disable : true
       line_numbers: false
 
+    
 compress_html:
   clippings: all
   comments: all

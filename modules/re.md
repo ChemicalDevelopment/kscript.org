@@ -67,14 +67,14 @@ graph(['s0', 's1', 's2', 's3'], [(0, 1), (0, 2), (1, 0, 'a'), (2, 3, 'b')])
 
 Converting to a `png` via the `dot` tool (see: [https://graphviz.org/](https://graphviz.org/)), we get the following image:
 
-![{{ site.baseurl }}/assets/images/nfa-0.svg]({{ site.baseurl }}assets/images/nfa-0.svg)
+![{{ site.baseurl }}/assets/images/nfa-0.svg]({{ site.baseurl }}/assets/images/nfa-0.svg)
 
 Edges which have no value/label are [epsilon transitions](https://en.wikipedia.org/wiki/Epsilon_transition)
 
 
 Here are some other examples:
 
-![{{ site.baseurl }}/assets/images/nfa-1.svg]({{ site.baseurl }}assets/images/nfa-1.svg)
+![{{ site.baseurl }}/assets/images/nfa-1.svg]({{ site.baseurl }}/assets/images/nfa-1.svg)
 
 
 
