@@ -88,10 +88,8 @@ In thread 'main' @ 0x55E946DA7850
 #### os.path.exists(self)
 {: .method .no_toc }
 
-<div class="method-text">
-{% markdown %}
+<div class="method-text" markdown="1">
 Determines whether a path exists on the filesystem, returning a `bool`
-{% endmarkdown %}
 </div>
 
 #### os.path.isfile(self)
@@ -101,22 +99,18 @@ Determines whether a path exists on the filesystem, returning a `bool`
 #### os.path.islink(self)
 {: .method .no_toc }
 
-<div class="method-text">
-{% markdown %}
+<div class="method-text" markdown="1">
 Determines whether a path refers to a regular file, directory, or a link respectively, returning a `bool`
 
 Throws an `IOError` if the path did not exist
-{% endmarkdown %}
 </div>
 
 
 #### os.path.parent(self)
 {: .method .no_toc }
 
-<div class="method-text">
-{% markdown %}
+<div class="method-text" markdown="1">
 Returns a path representing the parent of the given path, i.e. the directory which contains `self`
-{% endmarkdown %}
 </div>
 
 
