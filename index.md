@@ -27,13 +27,13 @@ scripting language with a rich standard library, well suited to solve all sorts 
 
 Installing with a package manager is the recommended way to install kscript. This will ensure that your distribution has been tested and will work on your system.
 
-```bash
+```shell
 $ sudo apt install kscript # Debian, Ubuntu, and derivatives
 ```
 
 Example:
 
-```bash
+```shell
 $ sudo apt install kscript
 $ ks --version
 0.0.1
@@ -61,7 +61,7 @@ The structure is meant to mirror traditional Unix directory structure, which mea
 
 Example:
 
-```bash
+```shell
 $ tar xfv kscript-0.0.1-x86_64.tar.gz
 bin/ks
 lib/libks.so
@@ -81,7 +81,7 @@ Sometimes you may want to build your own version from the source code. This is a
 
 To get the source code, you can either clone the [repository on GitHub](https://github.com/ChemicalDevelopment/kscript):
 
-```bash
+```shell
 $ git clone https://github.com/ChemicalDevelopment/kscript.git && cd kscript
 ```
 
@@ -89,7 +89,7 @@ Or, you can download [a specific version](https://github.com/ChemicalDevelopment
 
 Once you're inside the kscript source directory, you should be able to run these commands to configure and build kscript:
 
-```bash
+```shell
 $ ./configure
 $ make # use '-j<num>' for multicore compilation
 $ make check # runs some sanity checks (optional, but recommended)
@@ -98,7 +98,7 @@ $ sudo make install # installs to '/usr/local' (optional)
 
 You can run the kscript interpreter locally via:
 
-```bash
+```shell
 $ ./bin/ks --version
 0.0.1
 $ ./bin/ks -Im -e 'm.pi'
@@ -107,7 +107,7 @@ $ ./bin/ks -Im -e 'm.pi'
 
 On some platforms (for example, Windows), there is a `.exe` suffix. On those platforms, you should run:
 
-```bash
+```shell
 $ ./bin/ks.exe --version
 0.0.1
 $ ./bin/ks.exe -Im -e 'm.pi'
@@ -116,7 +116,7 @@ $ ./bin/ks.exe -Im -e 'm.pi'
 
 To customize the installation, or specify custom paths/dependencies, you can run:
 
-```bash
+```shell
 $ ./configure --help
 Usage: ./configure [options]
   -h,--help               Print this help/usage message and exit
@@ -139,7 +139,7 @@ Cade Brown <cade@kscript.org>
 To build a very small version of kscript, you can use these options:
 
 
-```bash
+```shell
 $ ./configure --ucd-ascii --with-gmp off --with-readline off --with-pthreads off --with-fftw3 off
 ```
 
@@ -156,7 +156,7 @@ You can see a list of examples in [the path '/examples'](https://github.com/Chem
 
 The interactive interpreter can be started a few ways:
 
-```bash
+```shell
 $ ks
 >>>
 $ ks -
@@ -169,7 +169,7 @@ The variable `_` is the result of the last expression executed. Or, if there was
 
 You can enter the `EOF` character (on most terminals, this is done with the `Control+D` key combination) to terminate the interpreter. Using `Control+C` will cause the following message to be printed:
 
-```bash
+```shell
 $ ks
 >>> 
 Use 'CTRL-D' or 'exit()' to quit the process
@@ -178,7 +178,7 @@ Use 'CTRL-D' or 'exit()' to quit the process
 
 Multi-line constructs are supported, but you must begin your braces on that line. For example, entering a simple `for` loop (that uses 3 lines) can be done like so:
 
-```bash
+```shell
 $ ks
 >>> for i in range(4) {
 ...   print (i)
@@ -193,7 +193,7 @@ $ ks
 All it requires is that `(`, `[`, or `{` occurs more than the corresponding `)`, `]`, and `}`. While there are more left sides of these groupings, the interpreter will give more continuation lines that begin with `...` instead of the primary prompt `>>>`. You can use `Control+C` to cancel and throw away any lines created if you made a mistake. For example:
 
 
-```bash
+```shell
 $ ks
 >>> for i in Range(4) {
 ... <Control+C>
@@ -213,7 +213,7 @@ $ ks
 You can also use the interactive interpreter with a redirected source to the input:
 
 
-```bash
+```shell
 $ echo 'print ("Hello World")' | ks -
 Hello World
 $ ./bin/ks - <<<'for i in range(4), print (i)'
@@ -247,7 +247,7 @@ print ("hello, world")
 
 Running:
 
-```bash
+```shell
 $ ks hello_world.ks
 hello, world
 ```

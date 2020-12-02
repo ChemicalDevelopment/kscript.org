@@ -10,7 +10,7 @@ parent: Tutorials
 
 Let's remind ourselves of the definition, where $F_n$ is the $n$th Fibonacci number: $F_0 = 0, F_1 = 1, F_{n} = F_{n-1} + F_{n-2}$. So, the sequence $F$ goes $0, 1, 1, 2, 3, 5, 8, 13, 21$ beginning with $n=0$. Our task is to generate a program to calculate the $n$th fibonacci number and print it out. Assuming our program is called `fib.ks`, here's how it should be used:
 
-```bash
+```shell
 $ ./fib.ks 0
 0
 $ ./fib.ks 1
