@@ -1,7 +1,7 @@
 
 title: kscript docs
 description: A programming language for people
-baseurl: "/"
+baseurl: ""
 url: "https://kscript.org"
 version: 0.0.1
 

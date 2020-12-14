@@ -82,10 +82,7 @@ While these are okay for a basic prototype, let's see if we can improve our prog
 
 We will use the `getarg` module to perform the argument parsing automatically. We will also use a special feature in kscript that allows implicit recursion, by calling the `...` singleton.
 
-
-
 ```ks
-import os
 import getarg
 
 # Create an argument parser
@@ -94,8 +91,8 @@ p = getarg.Parser('fib', '0.0.1', 'Calculates Fibonacci numbers', ['Cade Brown <
 # Add a positional argument, which is of type 'int'
 p.pos('n', 'Which Fibonacci number to calculate', int)
 
-# The 'os.argv' is optional; it may be left out as the default is to parse commandline arguments
-args = p.parse(os.argv)
+# Default arguments are 'os.argv', so we don't have to mention that
+args = p.parse()
 
 # Calculates the 'n'th Fibonacci number
 func fib(n) {

@@ -7,10 +7,10 @@ permalink: /
 ---
 
 
-# kscript.org -- finally, a solution, among all these problems
+# kscript.org -- Official Documentation
 {: .no_toc .fs-9 }
 
-scripting language with a rich standard library, well suited to solve all sorts of problems
+kscript is a programming language with expressive syntax, cross-platform support, and a rich standard library
 {: .fs-6 .fw-300 }
 
 [How To Install](#installation-guide){: .btn .btn-primary .fs-5 .mb-4 .mb-md-0 .mr-2 } [Basic Examples](#basic-examples){: .btn .fs-5 .mb-4 .mb-md-0 .mr-2 }
@@ -34,12 +34,11 @@ $ sudo apt install kscript # Debian, Ubuntu, and derivatives
 Example:
 
 ```shell
-$ sudo apt install kscript
 $ ks --version
 0.0.1
 $ ks -e 'print ("Hello World")'
 Hello World
-$ ks -Itime -e 'time.asc()'
+$ ks -itime -e 'time.format()'
 Mon Nov 30 18:27:35 2020
 ```
 
@@ -66,18 +65,18 @@ $ tar xfv kscript-0.0.1-x86_64.tar.gz
 bin/ks
 lib/libks.so
 ... # all the files
-include/ks.h
+include/ks/ks.h
 $ ./bin/ks --version
 0.0.1
 $ ./bin/ks -e 'print ("Hello World")'
 Hello World
-$ ./bin/ks -Itime -e 'time.asc()'
+$ ./bin/ks -itime -e 'time.format()'
 Mon Nov 30 18:27:35 2020
 ```
 
 ## Building From Source
 
-Sometimes you may want to build your own version from the source code. This is a guide for those users. Again, it should be reiterated that this option should only be done if you can't do the other versions.
+Sometimes you may want to build your own version from the source code. This is a guide for those users. Again, it should be reiterated that this option is not recommended for beginners
 
 To get the source code, you can either clone the [repository on GitHub](https://github.com/ChemicalDevelopment/kscript):
 
@@ -101,8 +100,8 @@ You can run the kscript interpreter locally via:
 ```shell
 $ ./bin/ks --version
 0.0.1
-$ ./bin/ks -Im -e 'm.pi'
-3.141592654
+$ ./bin/ks -im -e 'm.pi'
+3.141592653589
 ```
 
 On some platforms (for example, Windows), there is a `.exe` suffix. On those platforms, you should run:
@@ -110,8 +109,8 @@ On some platforms (for example, Windows), there is a `.exe` suffix. On those pla
 ```shell
 $ ./bin/ks.exe --version
 0.0.1
-$ ./bin/ks.exe -Im -e 'm.pi'
-3.141592654
+$ ./bin/ks.exe -im -e 'm.pi'
+3.141592653589
 ```
 
 To customize the installation, or specify custom paths/dependencies, you can run:
@@ -119,31 +118,34 @@ To customize the installation, or specify custom paths/dependencies, you can run
 ```shell
 $ ./configure --help
 Usage: ./configure [options]
+
   -h,--help               Print this help/usage message and exit
+  -v,--verbose            Print verbose output for checks
   --prefix V              Sets the prefix that the software should install to (default: /usr/local)
   --dest-dir V            Destination locally to install to (but is not kept for runtime) (default: )
 
-  --ucd-ascii             If given, then only use ASCII characters in the unicode database
+  --ucd-ascii             If given, then only use ASCII characters in the unicode database (makes the build smaller)
 
   --with-gmp V            Whether or not to use GMP for integers (default: auto)
   --with-readline V       Whether or not to use Readline for line-editing (default: auto)
   --with-pthreads V       Whether or not to use pthreads (Posix-threads) for threading interface (default: auto)
+  --with-ffi V            Whether or not to use ffi from libffi (Foreign Function Interface) for C-function interop (default: auto)
   --with-fftw3 V          Whether or not to use FFTW3 for Fast-Fourier-Transforms (default: auto)
 
-kscript configure script, any questions, comments, or concerns can be sent to:
+Any questions, comments, or concerns can be sent to:
 Cade Brown <cade@kscript.org>
 ```
 
 (output may differ based on the specific version you outputted)
 
-To build a very small version of kscript, you can use these options:
+For example, to build a very small version of kscript, you can use these options:
 
 
 ```shell
-$ ./configure --ucd-ascii --with-gmp off --with-readline off --with-pthreads off --with-fftw3 off
+$ ./configure --ucd-ascii --with-gmp off --with-readline off --with-pthreads off --with-fftw3 off --with-ffi off
 ```
 
-This will also reduce the number of requirements (typically, with these options turned off, only `libm`, `libdl`, and `libc` are linked). This can be used to build a version of kscript that can be embedded in another application, such as a game, text editor, or something else.
+This will also reduce the number of requirements (typically, with these options turned off, only `libm`, `libdl`, and `libc` are linked). This can be used to build a version of kscript that can be embedded in another application, such as a game, text editor, or something else. The `--ucd-ascii` causes non-ASCII identifiers/names to cause the compiler to emit a `SyntaxError`, so that option is not recommended except for extreme circumstances
 
 
 # Basic Examples

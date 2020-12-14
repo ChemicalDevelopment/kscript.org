@@ -53,9 +53,29 @@ h6 {
   color: $body-heading-color;
 }
 
+
+h1 > a {
+  color: $body-text-color;
+}
+
+h2 > a {
+  color: $body-text-color;
+}
+h3 > a {
+  color: $body-text-color;
+}
+h4 > a {
+  color: $body-text-color;
+}
+h5 > a {
+  color: $body-text-color;
+}
+
+
+
 p {
-  margin-top: 1em;
-  margin-bottom: 1em;
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
 }
 
 a {
@@ -81,7 +101,7 @@ a:not([class]) {
 
 code {
   font-family: $mono-font-family;
-  font-size: 0.92em;
+  font-size: 0.96em;
   line-height: $body-line-height;
 }
 
@@ -107,6 +127,14 @@ hr {
   border: 0;
 }
 
+figure {
+  display: block;
+  margin: 0 auto;
+  border: 1px solid black;
+  max-width: 87%;
+  max-height: 28em;
+  min-width: 11vw;
+}
 
 img {
   display: block;

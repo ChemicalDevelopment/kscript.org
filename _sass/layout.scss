@@ -43,6 +43,9 @@
   padding-top: $gutter-spacing-sm;
   padding-bottom: $gutter-spacing-sm;
 
+  //border: 1px $grey-dk-100 solid;
+
+
   @include mq(md) {
     padding-top: $gutter-spacing;
     padding-bottom: $gutter-spacing;
