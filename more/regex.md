@@ -12,7 +12,7 @@ parent: More
 
 [Regular expressions](https://en.wikipedia.org/wiki/Regular_expression) (the [`regex`](/types#regex) type in kscript) provides functionality for searching through text to find patterns. This can be very helpful in writing utilities (which may look for a pattern, and process lines that match), as well as when writing a lexer to tokenize an input stream, which makes it easier to process.
 
-Although the term 'regular expressions' originally referred to expressions describing truly [regular languages](https://en.wikipedia.org/wiki/Regular_language) (as in formal language theory), many programming languages have included non-regular extensions (such as backreferences, and so forth). Although this may be seen as restrictive, it means that the performance of regex operations can be much faster (see [here](https://swtch.com/~rsc/regexp/regexp1.html)).
+Although the term 'regular expressions' originally referred to expressions describing truly [regular languages](https://en.wikipedia.org/wiki/Regular_language) (as in formal language theory), many programming languages have included non-regular extensions (such as backreferences, and so forth). In kscript, however, regular expressions are true regular expressions (so, no backreferences are allowed). Although this may be seen as restrictive, it means that the performance of regex operations can be much faster (see [here](https://swtch.com/~rsc/regexp/regexp1.html)).
 
 
 kscript has a special syntax for regex patterns, with `` `<pattern>` ``. For example, `` `a*b` `` matches any number of `a` characters followed by a `b` character. The syntax is equivalent to `regex('<pattern>')`, which compiles a string expression. Thus:
