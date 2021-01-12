@@ -2,7 +2,7 @@
 layout: default
 title: Overview
 nav_order: 1
-description: "kscript is a scripting language with a rich standard library, well suited to solve all sorts of problems"
+description: "kscript is a dynamic programming language with a rich standard library, well suited to solve all sorts of problems"
 permalink: /
 ---
 
@@ -13,148 +13,46 @@ permalink: /
 kscript is a programming language with expressive syntax, cross-platform support, and a rich standard library
 {: .fs-6 .fw-300 }
 
-[How To Install](#installation-guide){: .btn .btn-primary .fs-5 .mb-4 .mb-md-0 .mr-2 } [Basic Examples](#basic-examples){: .btn .fs-5 .mb-4 .mb-md-0 .mr-2 }
+[How To Install](/install){: .btn .btn-primary .fs-5 .mb-4 .mb-md-0 .mr-2 } [How To Build](/build){: .btn .btn-primary .fs-5 .mb-4 .mb-md-0 .mr-2 }
 
 ---
+
 
  * TOC
 {:toc}
 
 
-# Installation Guide
 
-## Installation (Package Manager)
+## What is kscript?
 
-Installing with a package manager is the recommended way to install kscript. This will ensure that your distribution has been tested and will work on your system.
+kscript ([https://kscript.org](https://kscript.org)) is a dynamic programming language with expressive syntax, cross platform support, and a rich standard library. Its primary aim is to allow developers to write platform agnostic programs that can run anywhere, and require little or no platform- or os- specific code.
 
-```shell
-$ sudo apt install kscript # Debian, Ubuntu, and derivatives
-```
-
-Example:
-
-```shell
-$ ks --version
-0.0.1
-$ ks -e 'print ("Hello World")'
-Hello World
-$ ks -itime -e 'time.format()'
-Mon Nov 30 18:27:35 2020
-```
+Documentation is available at [kscript.org](https://kscript.org), which provides examples, tutorials, and coverage of the standard library. Formal specifications are available at the GitHub repository ([https://github.com/ChemicalDevelopment/kscript](https://github.com/ChemicaldDvelopment/kscript)), within the `docs` folder.
 
 
-## Installation (From GitHub Releases)
+## Why is kscript?
 
-If, for whatever reason, your package manager is not listed, or some other complication arises, you can download binaries from the [GitHub Releases](https://github.com/ChemicalDevelopment/kscript/releases).
+kscript was designed to be a tool useful in many different circumstances -- as a computer calculator, as a task-automation language, GUI development language, numerical programming, and more. A few languages may come to mind -- namely Python, tcl, and so forth.
 
-The naming scheme is `kscript-<VERSION>-<ARCH>.tar.gz`. You can download that file and extract it. It will contain the directories:
+I found that I had issues with some choices the Python team made. Syntactically, I dislike required whitespace, and dislike Python's overuse of `:`. . I feel that many Python modules (for example, `os`) do not give the best interface to their functionality, and often require the programmer to use platform-specific code. I'd like to conclude this paragraph with a redeeming note -- Python has been very successful and I largely do enjoy the language (even though I have my complaints), and even borrow the great ideas Python has had.
 
-```
-bin/
-lib/
-include/
-```
+To see comparisons of kscript to other languages, see [more/compare](/more/compare)
 
-The structure is meant to mirror traditional Unix directory structure, which means you can extract to `/usr/local` and it should work as if you had installed it via a package manager. However, you can also extract it in a local directory, and run that local binary (i.e. `./bin/ks`).
+## Who is kscript?
 
+kscript is developed by free software enthusiasts, under the organization [ChemicalDevelopment](https://chemicaldevelopment.us). Feel free to contact current authors with questions, comments, or concerns at any time:
 
-Example:
-
-```shell
-$ tar xfv kscript-0.0.1-x86_64.tar.gz
-bin/ks
-lib/libks.so
-... # all the files
-include/ks/ks.h
-$ ./bin/ks --version
-0.0.1
-$ ./bin/ks -e 'print ("Hello World")'
-Hello World
-$ ./bin/ks -itime -e 'time.format()'
-Mon Nov 30 18:27:35 2020
-```
-
-## Building From Source
-
-Sometimes you may want to build your own version from the source code. This is a guide for those users. Again, it should be reiterated that this option is not recommended for beginners
-
-To get the source code, you can either clone the [repository on GitHub](https://github.com/ChemicalDevelopment/kscript):
-
-```shell
-$ git clone https://github.com/ChemicalDevelopment/kscript.git && cd kscript
-```
-
-Or, you can download [a specific version](https://github.com/ChemicalDevelopment/kscript/releases), and extract that archive.
-
-Once you're inside the kscript source directory, you should be able to run these commands to configure and build kscript:
-
-```shell
-$ ./configure
-$ make # use '-j<num>' for multicore compilation
-$ make check # runs some sanity checks (optional, but recommended)
-$ sudo make install # installs to '/usr/local' (optional)
-```
-
-You can run the kscript interpreter locally via:
-
-```shell
-$ ./bin/ks --version
-0.0.1
-$ ./bin/ks -im -e 'm.pi'
-3.141592653589
-```
-
-On some platforms (for example, Windows), there is a `.exe` suffix. On those platforms, you should run:
-
-```shell
-$ ./bin/ks.exe --version
-0.0.1
-$ ./bin/ks.exe -im -e 'm.pi'
-3.141592653589
-```
-
-To customize the installation, or specify custom paths/dependencies, you can run:
-
-```shell
-$ ./configure --help
-Usage: ./configure [options]
-
-  -h,--help               Print this help/usage message and exit
-  -v,--verbose            Print verbose output for checks
-  --prefix V              Sets the prefix that the software should install to (default: /usr/local)
-  --dest-dir V            Destination locally to install to (but is not kept for runtime) (default: )
-
-  --ucd-ascii             If given, then only use ASCII characters in the unicode database (makes the build smaller)
-
-  --with-gmp V            Whether or not to use GMP for integers (default: auto)
-  --with-readline V       Whether or not to use Readline for line-editing (default: auto)
-  --with-pthreads V       Whether or not to use pthreads (Posix-threads) for threading interface (default: auto)
-  --with-ffi V            Whether or not to use ffi from libffi (Foreign Function Interface) for C-function interop (default: auto)
-  --with-fftw3 V          Whether or not to use FFTW3 for Fast-Fourier-Transforms (default: auto)
-
-Any questions, comments, or concerns can be sent to:
-Cade Brown <cade@kscript.org>
-```
-
-(output may differ based on the specific version you outputted)
-
-For example, to build a very small version of kscript, you can use these options:
+  * [Cade Brown <cade@kscript.org>](mailto:cade@kscript.org)
+  * [Gregory Croisdale <greg@kscript.org>](mailto:greg@kscript.org)
 
 
-```shell
-$ ./configure --ucd-ascii --with-gmp off --with-readline off --with-pthreads off --with-fftw3 off --with-ffi off
-```
-
-This will also reduce the number of requirements (typically, with these options turned off, only `libm`, `libdl`, and `libc` are linked). This can be used to build a version of kscript that can be embedded in another application, such as a game, text editor, or something else. The `--ucd-ascii` causes non-ASCII identifiers/names to cause the compiler to emit a `SyntaxError`, so that option is not recommended except for extreme circumstances
-
-
-# Basic Examples
+## Basic Examples
 
 Some examples can be ran directly as an option to `-e/--expr`, or ran in the interactive interpeter via `-`. Some are recommended to save to a file, and run directly via `ks <filename>`.
 
 You can see a list of examples in [the path '/examples'](https://github.com/ChemicalDevelopment/kscript/tree/master/examples)
 
-## 0. Interactive Interpreter
+### 0. Interactive Interpreter
 
 The interactive interpreter can be started a few ways:
 
@@ -228,7 +126,7 @@ $ ./bin/ks - <<<'for i in range(4), print (i)'
 Syntax for redirection will vary based on your shell or other utility. The examples shown are for Bash.
 
 
-## 1. 'Hello, World'
+### 1. 'Hello, World'
 
 The most basic example in kscript is very easy:
 
@@ -251,6 +149,8 @@ Running:
 
 ```shell
 $ ks hello_world.ks
+hello, world
+$ ./hello_world.ks
 hello, world
 ```
 

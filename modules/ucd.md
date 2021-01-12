@@ -1,7 +1,8 @@
 ---
 layout: default
-title: 'ucd: Unicode Database'
 parent: Modules
+title: 'ucd: Unicode Database'
+permalink: /modules/ucd
 ---
 
 # Unicode Database Module ('import ucd')
@@ -11,7 +12,7 @@ parent: Modules
 {:toc}
 
 
-[Unicode](https://en.wikipedia.org/wiki/Unicode) is a set of standards for text encoding, representation, and character sets. Supporting unicode is easy to do in kscript, which allows the [`str`](/types#str) type to take on any of the unicode codepoints. However, sometimes you want to do more than just store the text, and print it out. Sometimes, you would like to, for example, tell what kind of character a part of a string is. This module allows you to look up information about Unicode characters dynamically.
+[Unicode](https://en.wikipedia.org/wiki/Unicode) is a set of standards for text encoding, representation, and character sets. Supporting unicode is easy to do in kscript, which allows the [`str`](/builtins#str) type to take on any of the unicode codepoints. However, sometimes you want to do more than just store the text, and print it out. Sometimes, you would like to, for example, tell what kind of character a part of a string is. This module allows you to look up information about Unicode characters dynamically.
 
 Note: Your system may or may not be compiled for full Unicode support. For example, if you have an embedded version of kscript, or are running on systems with low amounts of resources.
 

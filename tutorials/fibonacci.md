@@ -39,7 +39,7 @@ func fib(n) {
 kscript uses the `ret` keyword instead of `return`, but it just means 'return this expression as the result of the function'
 
 
-Now, we need to read the input from the commandline arguments, and call the function with that argument. To access that, you can use `os.argv`. Our program will have to `import os` before we use that. Also note that we can convert strings to integers via the `int()` type, used as a constructor. 
+Now, we need to read the input from the commandline arguments, and call the function with that argument. To access that, you can use [`os.argv`](#/modules/os#argv). Our program will have to `import os` before we use that. Also note that we can convert strings to integers via the [`int()`](/builtins#int) type, used as a constructor. 
 
 ```ks
 # Since we use 'os.argv'
@@ -89,7 +89,7 @@ import getarg
 p = getarg.Parser('fib', '0.0.1', 'Calculates Fibonacci numbers', ['Cade Brown <cade@kscript.org>'])
 
 # Add a positional argument, which is of type 'int'
-p.pos('n', 'Which Fibonacci number to calculate', int)
+p.pos('n', 'Which Fibonacci number to calculate', 1, int)
 
 # Default arguments are 'os.argv', so we don't have to mention that
 args = p.parse()
@@ -108,5 +108,4 @@ func fib(n) {
 print (fib(args.n))
 
 ```
-
 

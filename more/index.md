@@ -1,7 +1,7 @@
 ---
 layout: default
 title: More
-nav_order: 11
+nav_order: 80
 has_children: true
 autostart: true
 permalink: more

@@ -1,7 +1,8 @@
 ---
 layout: default
-title: 'os: Operating System'
 parent: Modules
+title: 'os: Operating System'
+permalink: /modules/os
 ---
 
 # Operating System Module ('import os')
@@ -13,25 +14,63 @@ parent: Modules
 The operating system module (`os`) provides functionality and wrappers around operating system and platform specific functionality, including the filesystem, threads, and process information.
 
 
-## Variables
+## `os.argv`: Commandline arguments {#argv}
+{: .typeheader }
 
-| Name| Description|
-|:-------|:-----|
-| `os.argv` | Commandline arguments supplied to the process. `os.argv[0]` is the program name that was executed, and the rest are the (optional) arguments |
-| `os.stdin` | A readable [io.FileIO](/modules/io/#fileio) object, which represents the input to the program |
-| `os.stdout` | A writeable [io.FileIO](/modules/io/#fileio) object, which represents the main output of the program |
-| `os.stderr` | A writeable [io.FileIO](/modules/io/#fileio) object, which represents the error message output of the program |
+The commandline arguments supplied to the process. 
 
-## Types
+`os.argv[0]` is the program name that was executed, and the rest are arguments passed after the binary name
 
-### `os.path`: Filesystem path {#path}
+---
+
+## `os.stdin`: Standard input {#stdin}
+{: .typeheader }
+
+A readable [io.FileIO](/modules/io#FileIO) object, which represents input to the process
+
+---
+
+## `os.stdout`: Standard output {#stdout}
+{: .typeheader }
+
+A writeable [io.FileIO](/modules/io#FileIO) object, which represents output from the process
+
+This is the output of the [`print`](/builtins#print) function
+
+---
+
+## `os.stderr`: Standard error {#stderr}
+{: .typeheader }
+
+A writeable [io.FileIO](/modules/io#FileIO) object, which represents error output from the process
+
+---
+
+## `os.chdir(path)`: Change directory {#chdir}
+{: .typeheader }
+
+Changes the current directory to `path`
+
+`path` should be either [`str`](/builtins#str) or [`os.path`](#path).
+
+---
+
+## `os.cwd()`: Current working directory {#cwd}
+{: .typeheader }
+
+Returns the current working directory
+
+---
+
+## `os.path('.', root=none)`: Filesystem path {#path}
+{: .typeheader }
 
 A [path](https://en.wikipedia.org/wiki/Path_(computing)) represents a location within a directory tree structure. In general, there can be both relative paths (for example, `myfile.txt`), or absolute paths (`/full/path/to/myfile.txt`). On some platforms (such as Unix-like OSes), (absolute) paths all have a root of `/`, which is the root of the entire system, even though there may other filesystems mounted at certain points. On other platforms, however (such as Microsoft Windows), path treatment becomes more complex -- absolute paths are now on a specific drive (commonly, `C:\` or `D:\`), paths do not have a common ancestor, and so forth.
 
 Therefore, to simplify this burden, the [`os.path`](/modules/os#path) type can be used interchangeably among all systems, by having parts of the path (represented as a tuple of strings, with implicit seperators between the elements) and a root object (which is `none` in the case of relative paths, or `'/'` in the case of Unix-style absolute paths, or a specific drive in the case of Windows-style absolute paths, such as `'C:\'` or `'D:\'`).
 
 
-You can construct an [`os.path`](/modules/os#path) with either a [`str`](/types#str), which will be parsed and transformed accordingly, or via a tuple of parts and an (optional) root. Here are some examples:
+You can construct an [`os.path`](/modules/os#path) with either a [`str`](/builtins#str), which will be parsed and transformed accordingly, or via a tuple of parts and an (optional) root. Here are some examples:
 
 ```ks
 >>> import os
@@ -78,43 +117,26 @@ In <thread 'main'>
 
 | Attribute | Description |
 |:-------|:--------|
-| `.root` | The root of the path object, which is either `none` for a relative path, or a string representing the filesystem (`/` on Unix, or `C:\`, `D:\`, etc. on Windows) |
+| `.root` |  |
 | `.parts` | A tuple containing the parts of the path |
 
 
 
-#### os.path.exists(self) {#path.exists}
+
+#### os.path.root {#path.root}
 {: .method .no_toc }
 
 <div class="method-text" markdown="1">
-Determines whether a path exists on the filesystem, returning a [`bool`](/types#bool)
+The root of the path, which is either `none` for a relative path, or a [`str`](/builtins#str) with `/` (for Unix-like OSes), or something like `C:\` or `D:\` (for Windows-like OSes).
 </div>
 
-#### os.path.isfile(self) {#path.isfile}
+#### os.path.parts {#path.parts}
 {: .method .no_toc }
 
 <div class="method-text" markdown="1">
-Determines whether a path refers to a regular file
-
-Throws an `OSError` if the path did not exist
+Tuple of directory/path entries, which have been split on directory seperators
 </div>
 
-#### os.path.isdir(self) {#path.isdir}
-{: .method .no_toc }
-<div class="method-text" markdown="1">
-Determines whether a path refers to a directory
-
-Throws an `OSError` if the path did not exist
-</div>
-
-#### os.path.islink(self) {#path.islink}
-{: .method .no_toc }
-
-<div class="method-text" markdown="1">
-Determines whether a path refers to a symbolic link
-
-Throws an `OSError` if the path did not exist
-</div>
 
 
 #### os.path.parent(self) {#path.parent}
@@ -122,10 +144,12 @@ Throws an `OSError` if the path did not exist
 
 <div class="method-text" markdown="1">
 Returns a path representing the parent of the given path, i.e. the directory which contains `self`
+
+This is a string operation -- if used on symbolic links, it will return the parent directory of the link, not the file it points to.
 </div>
 
 
-#### os.path.last(self)  {#path.last}
+#### os.path.last(self) {#path.last}
 {: .method .no_toc }
 
 <div class="method-text" markdown="1">
@@ -140,11 +164,45 @@ Throws an `Error` if it was an empty path
 </div>
 
 
+
+#### os.path.exists(self) {#path.exists}
+{: .method .no_toc }
+
+<div class="method-text" markdown="1">
+Determines whether a path exists on the filesystem
+
+This is a helper method based on [`os.stat`](#stat) output
+</div>
+
+#### os.path.isfile(self) {#path.isfile}
+{: .method .no_toc }
+
+<div class="method-text" markdown="1">
+Determines whether a path refers to a regular file
+
+This is a helper method based on [`os.stat`](#stat) output
+</div>
+
+#### os.path.isdir(self) {#path.isdir}
+{: .method .no_toc }
+<div class="method-text" markdown="1">
+Determines whether a path refers to a directory
+
+This is a helper method based on [`os.stat`](#stat) output
+</div>
+
+#### os.path.islink(self) {#path.islink}
+{: .method .no_toc }
+
+<div class="method-text" markdown="1">
+Determines whether a path refers to a symbolic link
+
+This is a helper method based on [`os.stat`](#stat) output
+</div>
+
 ---
 
-
-
-### `os.mutex`: Mutual exclusion {#mutex}
+## `os.mutex()`: Mutual exclusion {#mutex}
 
 A [mutual exclusion lock](https://en.wikipedia.org/wiki/Lock_(computer_science)), (`mutex` for short) allows locking for a critical section, usually to enforce certain data dependencies. For example, if modifying a list in multiple places, it may be useful to lock access manually, so that multiple threads are not modifying the list simultaneously.
 
@@ -165,7 +223,6 @@ Acquires a lock on the mutex, which must be released via `self.unlock()`
 Unlocks the mutex, which was locked via `self.lock()`
 </div>
 
-
 #### os.mutex.trylock(self) {#mutex.trylock}
 {: .method .no_toc }
 
@@ -185,10 +242,59 @@ Example:
 
 </div>
 
+---
+
+## `os.proc(argv)`: Process execution {#proc}
+
+A [process](https://en.wikipedia.org/wiki/Process_(computing)) can be thought of as a running program, which has one or more threads.
+
+Processes are launched by using this type as a function, which accepts the `argv` to launch. For example: `os.proc(["/bin/echo", "hi"])` will attempt to launch a process to echo `hi` to the screen. However, that requires there to be a file located at `/bin/echo`, so launching a process will depend on your system installation and avaiable programs.
+
+#### os.proc.argv {#proc.argv}
+{: .method .no_toc }
+
+<div class="method-text" markdown="1">
+This attribute is a tuple of the arguments the process was launched with, or `none` if they are unknown (for example, wrapping a process that kscript didn't launch)
+</div>
+
+#### os.proc.pid {#proc.pid}
+{: .method .no_toc }
+
+<div class="method-text" markdown="1">
+This attribute is an integer representing the process ID of PID
+</div>
+
+#### os.proc.join(self) {#proc.join}
+{: .method .no_toc }
+
+<div class="method-text" markdown="1">
+Waits for the process to finish executing and returns the exit code of that process
+</div>
+
+#### os.proc.isalive(self) {#proc.isalive}
+{: .method .no_toc }
+
+<div class="method-text" markdown="1">
+Polls the process and returns whether it is still alive
+</div>
+
+#### os.proc.signal(self, code) {#proc.isalive}
+{: .method .no_toc }
+
+<div class="method-text" markdown="1">
+Sends a signal to the process, which should be an `int`
+</div>
+
+#### os.proc.kill(self) {#proc.isalive}
+{: .method .no_toc }
+
+<div class="method-text" markdown="1">
+Attempts to kill the process forcibly
+</div>
 
 ---
 
-### `os.thread`: Threaded execution {#thread}
+## `os.thread(func, args=(), name=none)`: Threaded execution {#thread}
 
 A [thread](https://en.wikipedia.org/wiki/Thread_(computing)) can be thought of as a single strand of execution. Multiple threads may be running concurrently, meaning that they are both executing code within a certain timeframe, independent of each other.
 
@@ -209,14 +315,12 @@ none
 However, running with threads printing to the interpreter can create jumbled output.
 
 
-
 #### os.thread.start(self) {#thread.start}
 {: .method .no_toc }
 
 <div class="method-text" markdown="1">
 Begin executing a thread
 </div>
-
 
 #### os.thread.join(self) {#thread.join}
 {: .method .no_toc }
@@ -225,11 +329,16 @@ Begin executing a thread
 Wait for a thread to finish executing and join it back
 </div>
 
+#### os.thread.isalive(self) {#thread.isalive}
+{: .method .no_toc }
+
+<div class="method-text" markdown="1">
+Polls the thread and returns whether it is still alive
+</div>
+
 ---
 
-## Functions
-
-#### os.getenv(key, defa=none) {#getenv}
+## `os.getenv(key, defa=none)`: Get environment variable {#getenv}
 {: .method }
 
 <div class="method-text" markdown="1">
@@ -239,7 +348,9 @@ If `defa` is given, no error is thrown, and it is returned instead
 
 </div>
 
-#### os.setenv(key, val) {#setenv}
+---
+
+## `os.setenv(key, val)`: Set environment variable {#setenv}
 {: .method }
 
 <div class="method-text" markdown="1">
@@ -248,3 +359,137 @@ Set an [environment variable](https://en.wikipedia.org/wiki/Environment_variable
 </div>
 
 ---
+
+## `os.listdir(path)`: List directory contents {#listdir}
+{: .method }
+
+<div class="method-text" markdown="1">
+Returns a tuple of `(dirs, files)` which are the sub-directories and files within `path` on disk. Throws an error if `path` is not a valid directory
+
+`path` should be either [`str`](/builtins#str) or [`os.path`](#path).
+
+</div>
+
+---
+
+## `os.mkdir(path, mode=0o777, parents=false)`: Make a directory {#mkdir}
+{: .method }
+
+Creates a new directory `path` on the filesystem, with a given mode
+
+On some platforms, `mode` may be ignored, but it is meant to be a permissions mask given in octal. 
+
+`path` should be either [`str`](/builtins#str) or [`os.path`](#path).
+
+---
+
+## `os.rm(path, parents=false)`: Remove a directory {#rm}
+{: .method }
+
+Removes a file or directory from the filesystem
+
+If `parents` is true, and `path` refers to a directory, then it is recursively deleted (similar to `mkdir -p` in the shell). However, if `parents` is `false`, and `path` is a non-empty directory, an exception is thrown.
+
+---
+
+## `os.fstat(fd)`: Query information about a file descriptor {#fstat}
+{: .method }
+
+Queries information about an open file descriptor `fd` (which should be an [`int`](/builtins#int) or integral value).
+
+Returns an [`os.stat`](#stat) object
+
+---
+
+## `os.lstat(path)`: Query filesystem information without following symbolic links {#lstat}
+{: .method }
+
+Queries information about a path in the file system, but does not follow symbolic links. So, if you call it with `path` being a symbolic link, it will return information about the link itself, rather than the path pointed to by the link.
+
+Returns an [`os.stat`](#stat) object
+
+---
+
+## `os.stat(path)`: Query filesystem information {#stat}
+{: .method }
+
+This type represents status of a file or directory or link on a filesystem. It is also callable as a function, which performs a query on the given path.
+
+Queries information about a path in the file system, but does not follow symbolic links. So, if you call it with `path` being a symbolic link, it will return information about the link itself, rather than the path pointed to by the link.
+
+
+See [`os.fstat`](#fstat) and [`os.lstat`](#lstat) for querying information about file descriptors and without following symbolic links.
+
+#### os.stat.gid {#stat.gid}
+{: .method .no_toc }
+<div class="method-text" markdown="1">
+Group ID and name of the owner
+</div>
+
+#### os.stat.uid {#stat.uid}
+{: .method .no_toc }
+<div class="method-text" markdown="1">
+User ID and name of the owner
+</div>
+
+
+#### os.stat.dev {#stat.dev}
+{: .method .no_toc }
+<div class="method-text" markdown="1">
+This attribute is an integer representing the device on which the queried entry is located. This is highly platform specific, and is often encoded as major/minor versions.
+
+On Unix-like OSes, for example, you can extract it like such:
+
+```ks
+>>> x = os.stat("File.txt")
+<os.stat dev=2049, inode=19138881, gid=1000, uid=1000, size=4249, mode=0o100664>
+>>> major = (x.dev >> 8) & 0xFF
+8
+>>> minor = x.dev & 0xFF
+1
+```
+</div>
+
+#### os.stat.inode {#stat.inode}
+{: .method .no_toc }
+<div class="method-text" markdown="1">
+This attribute is an integer representing the [inode](https://en.wikipedia.org/wiki/Inode) within the filesystem, which can be thought of as an ID.
+</div>
+
+#### os.stat.size {#stat.size}
+{: .method .no_toc }
+<div class="method-text" markdown="1">
+This attribute is an integer representing the size in bytes of the file
+</div>
+
+#### os.stat.mtime {#stat.mtime}
+{: .method .no_toc }
+<div class="method-text" markdown="1">
+This attribute is a [`float`](/builtins#float) representing the time of last modification (time since epoch).
+</div>
+
+#### os.stat.atime {#stat.mtime}
+{: .method .no_toc }
+<div class="method-text" markdown="1">
+This attribute is a [`float`](/builtins#float) representing the time of last access (time since epoch).
+</div>
+
+#### os.stat.ctime {#stat.mtime}
+{: .method .no_toc }
+<div class="method-text" markdown="1">
+This attribute is a [`float`](/builtins#float) representing the time of last status change (time since epoch).
+</div>
+
+---
+
+## `os.walk(path='.', topdown=false)`: Filesystem walk iterator {#walk}
+
+This type represents a recursive top-down or bottom-up iterator through directories.
+
+Being a stateful iterator, it can be iterated via the [`next`](/builtins#next) or in a `for` loop. It yields tuples of `(subdir, dirs, files)`, where `subdir` is the current directory being emitted, and `dirs` are the directories in `subdir`, and `files` are the files in `subdir`. Equivalently, `(dirs, files) = os.listdir(subdir)`
+
+If `topdown` is `false` (default), then the result is bottom-up, which means subdirectories are emitted by their parents. Otherwise, a directory is emitted, and then its subdirectories are.
+
+---
+
+

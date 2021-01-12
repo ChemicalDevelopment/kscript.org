@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-gem_dir = File.expand_path("..",File.dirname(__FILE__))
+gem_dir = File.expand_path("..",File.dirname(__FILE))
 $LOAD_PATH.unshift gem_dir # Look in gem directory for resources first.
 exec_type = ARGV[0]
 
