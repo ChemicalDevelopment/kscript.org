@@ -323,3 +323,108 @@ MyType
 'WhateverYouWant'
 ```
 
+---
+
+
+### `print(*args)`: Prints output {#print}
+
+Prints all of `args` to [`os.stdout`](/modules/os#stdout) (by converting them to [`str`](#str)), adding a space between each one. Then, a newline is also printed
+
+
+For more fine grain output control see the [`printf`](#printf) and [`io.BaseIO.printf`](/modules/io#BaseIO.printf) functions
+
+---
+
+### `printf(fmt, *args)`: Prints formatted output {#printf}
+
+Like [`print`](#print) (it prints to [`os.stdout`](/modules/os#stdout)), except that it starts with a format string, and the rest of the arguments are converted sequentially according to the format string. No newline or space is added between arguments or after all of them.
+
+The format string `fmt` is expected to be made up of format specifiers, and normal printable text. A format specifier is started with the character `%` (percent sign), and followed by fields, which control how the object is converted. Finally, each format specifier ends with a single character denoting the type. Text in between format specifiers is output verbatim without modification
+
+
+Flags are optional characters that change the formatting for a specifier. All flags for a format specifier should be placed immediately after the `%`. Although different types may treat flags differently, generally their behavior is: 
+
+ * `+` causes the sign of numeric outputs to always be included (so, even positive numbers will have their sign before the digits)
+ * `-` causes the output to be left-aligned instead of right-aligned
+ * `0` causes the output of left-aligned numbers to contain leading `0`s instead of spaces
+
+
+After flags, there is an optional width field which can be an integer (for example, `%10s` has a width of `10`), or a `*`, which takes the next object from `args`, treats it like an integer, and treats that as the width (dynamic width).
+
+After width, there is an optional precision field which can be a `.` followed by an integer (for example `%.10s` has a precision of `10`), or `.*`, which takes the next object from `args`, treats it like an integer, and treats that as the precision (dynamic precision).
+
+
+Finally, there is the single-character format specifier which tells the type of output. Below are a table of specifiers:
+
+#### `%%`
+{: .method .no_toc }
+
+<div class="method-text" markdown="1">
+A literal `%` is added, and no more objects from the arguments are consumed
+</div>
+
+#### `%i`, `%I`, `%d`, `%D`
+{: .method .no_toc }
+
+<div class="method-text" markdown="1">
+The next object from `args` is taken, and interpreted as an [`int`](#int), and its base-10 digits are added
+</div>
+
+#### `%b`, `%B`
+{: .method .no_toc }
+
+<div class="method-text" markdown="1">
+The next object from `args` is taken, and interpreted as an [`int`](#int), and its base-2 bits are added
+</div>
+
+#### `%o`, `%O`
+{: .method .no_toc }
+
+<div class="method-text" markdown="1">
+The next object from `args` is taken, and interpreted as an [`int`](#int), and its base-8 octal digits are added
+</div>
+
+#### `%x`, `%X`
+{: .method .no_toc }
+
+<div class="method-text" markdown="1">
+The next object from `args` is taken, and interpreted as an [`int`](#int), and its base-16 hex digits are added
+
+If `%x` is used, then the hex digits `a-f` are used. If `%X` is used, then the hex digits `A-F` are used instead.
+</div>
+
+#### `%f`, `%F`
+{: .method .no_toc }
+
+<div class="method-text" markdown="1">
+The next object from `args` is taken, and interpreted as an [`float`](#float), and its base-10 digits are added
+</div>
+
+
+Here are some examples, which use `|` around some specifiers so it is easier to see the resulting size:
+
+```ks
+>>> printf('|%i|', 123)      # Direct translation
+|123|
+>>> printf('|%5i|', 123)     # Pads to size 5
+|123  |
+>>> printf('|%+5i|', 123)    # Pads to size 5, and always includes sign
+|+123 |
+>>> printf('|%-5i|', 123)    # Pads to size 5, and is left-aligned
+|  123|
+>>> printf('|%-+5i|', 123)   # Pads to size 5, and always includes sign, and is left-aligned
+| +123|
+>>> printf('|%05i|', 123)    # Pads to size 5, and includes leading zeros
+|00123|
+```
+
+
+For formatted output on arbitrary IO objects, see the [`io.BaseIO.printf`](/modules/io#BaseIO.printf) function
+
+
+---
+
+
+
+
+

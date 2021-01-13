@@ -15,7 +15,6 @@ The operating system module (`os`) provides functionality and wrappers around op
 
 
 ## `os.argv`: Commandline arguments {#argv}
-{: .typeheader }
 
 The commandline arguments supplied to the process. 
 
@@ -24,14 +23,12 @@ The commandline arguments supplied to the process.
 ---
 
 ## `os.stdin`: Standard input {#stdin}
-{: .typeheader }
 
 A readable [io.FileIO](/modules/io#FileIO) object, which represents input to the process
 
 ---
 
 ## `os.stdout`: Standard output {#stdout}
-{: .typeheader }
 
 A writeable [io.FileIO](/modules/io#FileIO) object, which represents output from the process
 
@@ -40,14 +37,38 @@ This is the output of the [`print`](/builtins#print) function
 ---
 
 ## `os.stderr`: Standard error {#stderr}
-{: .typeheader }
 
 A writeable [io.FileIO](/modules/io#FileIO) object, which represents error output from the process
 
 ---
 
+## `os.getenv(key, defa=none)`: Get environment variable {#getenv}
+
+<div class="method-text" markdown="1">
+Search for the [environment variable](https://en.wikipedia.org/wiki/Environment_variable) with the name `key`, or throw a `KeyError` if it was not found
+
+If `defa` is given, no error is thrown, and it is returned instead
+
+</div>
+
+---
+
+## `os.setenv(key, val)`: Set environment variable {#setenv}
+
+<div class="method-text" markdown="1">
+Set an [environment variable](https://en.wikipedia.org/wiki/Environment_variable) with the name `key` to the given value `val`
+
+</div>
+
+---
+
+## `os.cwd()`: Current working directory {#cwd}
+
+Returns the current working directory
+
+---
+
 ## `os.chdir(path)`: Change directory {#chdir}
-{: .typeheader }
 
 Changes the current directory to `path`
 
@@ -55,15 +76,154 @@ Changes the current directory to `path`
 
 ---
 
-## `os.cwd()`: Current working directory {#cwd}
-{: .typeheader }
 
-Returns the current working directory
+## `os.mkdir(path, mode=0o777, parents=false)`: Make a directory {#mkdir}
+
+Creates a new directory `path` on the filesystem, with a given mode
+
+On some platforms, `mode` may be ignored, but it is meant to be a permissions mask given in octal. 
+
+`path` should be either [`str`](/builtins#str) or [`os.path`](#path).
 
 ---
 
-## `os.path('.', root=none)`: Filesystem path {#path}
-{: .typeheader }
+## `os.rm(path, parents=false)`: Remove a directory {#rm}
+
+Removes a file or directory from the filesystem
+
+If `parents` is true, and `path` refers to a directory, then it is recursively deleted (similar to `mkdir -p` in the shell). However, if `parents` is `false`, and `path` is a non-empty directory, an exception is thrown.
+
+---
+
+## `os.listdir(path)`: List directory contents {#listdir}
+
+<div class="method-text" markdown="1">
+Returns a tuple of `(dirs, files)` which are the sub-directories and files within `path` on disk. Throws an error if `path` is not a valid directory
+
+`path` should be either [`str`](/builtins#str) or [`os.path`](#path).
+
+</div>
+
+---
+
+## `os.fstat(fd)`: Query information about a file descriptor {#fstat}
+
+Queries information about an open file descriptor `fd` (which should be an [`int`](/builtins#int) or integral value).
+
+Returns an [`os.stat`](#stat) object
+
+---
+
+## `os.lstat(path)`: Query filesystem information without following symbolic links {#lstat}
+
+Queries information about a path in the file system, but does not follow symbolic links. So, if you call it with `path` being a symbolic link, it will return information about the link itself, rather than the path pointed to by the link.
+
+Returns an [`os.stat`](#stat) object
+
+---
+
+## `os.stat(path)`: Query filesystem information {#stat}
+
+This type represents status of a file or directory or link on a filesystem. It is also callable as a function, which performs a query on the given path.
+
+Queries information about a path in the file system, but does not follow symbolic links. So, if you call it with `path` being a symbolic link, it will return information about the link itself, rather than the path pointed to by the link.
+
+
+See [`os.fstat`](#fstat) and [`os.lstat`](#lstat) for querying information about file descriptors and without following symbolic links.
+
+#### os.stat.gid {#stat.gid}
+{: .method .no_toc }
+<div class="method-text" markdown="1">
+Group ID and name of the owner
+</div>
+
+#### os.stat.uid {#stat.uid}
+{: .method .no_toc }
+<div class="method-text" markdown="1">
+User ID and name of the owner
+</div>
+
+
+#### os.stat.dev {#stat.dev}
+{: .method .no_toc }
+<div class="method-text" markdown="1">
+This attribute is an integer representing the device on which the queried entry is located. This is highly platform specific, and is often encoded as major/minor versions.
+
+On Unix-like OSes, for example, you can extract it like such:
+
+```ks
+>>> x = os.stat("File.txt")
+<os.stat dev=2049, inode=19138881, gid=1000, uid=1000, size=4249, mode=0o100664>
+>>> major = (x.dev >> 8) & 0xFF
+8
+>>> minor = x.dev & 0xFF
+1
+```
+</div>
+
+#### os.stat.inode {#stat.inode}
+{: .method .no_toc }
+<div class="method-text" markdown="1">
+This attribute is an integer representing the [inode](https://en.wikipedia.org/wiki/Inode) within the filesystem, which can be thought of as an ID.
+</div>
+
+#### os.stat.size {#stat.size}
+{: .method .no_toc }
+<div class="method-text" markdown="1">
+This attribute is an integer representing the size in bytes of the file
+</div>
+
+#### os.stat.mtime {#stat.mtime}
+{: .method .no_toc }
+<div class="method-text" markdown="1">
+This attribute is a [`float`](/builtins#float) representing the time of last modification (time since epoch).
+</div>
+
+#### os.stat.atime {#stat.mtime}
+{: .method .no_toc }
+<div class="method-text" markdown="1">
+This attribute is a [`float`](/builtins#float) representing the time of last access (time since epoch).
+</div>
+
+#### os.stat.ctime {#stat.mtime}
+{: .method .no_toc }
+<div class="method-text" markdown="1">
+This attribute is a [`float`](/builtins#float) representing the time of last status change (time since epoch).
+</div>
+
+---
+
+## `os.pipe()`: Create a new pipe {#path}
+
+Creates a new pipe, and returns a tuple of `(readio, writeio)` representing the readable and writable ends as [`io.RawIO`](/modules/io#RawIO) objects.
+
+---
+
+## `os.dup(fd, to=-1)`: Duplicate a file descriptor {#path}
+
+Duplicates an open file descriptor `fd` (which an be a [`io.RawIO`](/io#RawIO), [`io.FileIO`](/io#FileIO), or integral value).
+
+If `to < 0` (default), then this function creates a new file descriptor and returns it. Otherwise, it replaces `to` with a copy of `fd`
+
+---
+
+## `os.fork()`: Fork the process {#path}
+
+Forks the process, creating a new child process, after which the parent and the child will execute the same code. This function returns `0` in the child process, and the process ID (PID) in the parents
+
+---
+
+## `os.exec(cmd)`: Execute a shell command {#path}
+
+Execute a command as if typed into the default system shell, and return the exit code
+
+For more involved process launching, see the [`os.proc`](#proc) type, which allows for capturing inputs and outputs and more fine-grained control
+
+---
+
+
+
+## `os.path(obj='.', root=none)`: Filesystem path {#path}
 
 A [path](https://en.wikipedia.org/wiki/Path_(computing)) represents a location within a directory tree structure. In general, there can be both relative paths (for example, `myfile.txt`), or absolute paths (`/full/path/to/myfile.txt`). On some platforms (such as Unix-like OSes), (absolute) paths all have a root of `/`, which is the root of the entire system, even though there may other filesystems mounted at certain points. On other platforms, however (such as Microsoft Windows), path treatment becomes more complex -- absolute paths are now on a specific drive (commonly, `C:\` or `D:\`), paths do not have a common ancestor, and so forth.
 
@@ -122,7 +282,6 @@ In <thread 'main'>
 
 
 
-
 #### os.path.root {#path.root}
 {: .method .no_toc }
 
@@ -136,7 +295,6 @@ The root of the path, which is either `none` for a relative path, or a [`str`](/
 <div class="method-text" markdown="1">
 Tuple of directory/path entries, which have been split on directory seperators
 </div>
-
 
 
 #### os.path.parent(self) {#path.parent}
@@ -162,7 +320,6 @@ Throws an `Error` if it was an empty path
 'c.txt'
 ```
 </div>
-
 
 
 #### os.path.exists(self) {#path.exists}
@@ -201,6 +358,17 @@ This is a helper method based on [`os.stat`](#stat) output
 </div>
 
 ---
+
+## `os.walk(path='.', topdown=false)`: Filesystem walk iterator {#walk}
+
+This type represents a recursive top-down or bottom-up iterator through directories.
+
+Being a stateful iterator, it can be iterated via the [`next`](/builtins#next) or in a `for` loop. It yields tuples of `(subdir, dirs, files)`, where `subdir` is the current directory being emitted, and `dirs` are the directories in `subdir`, and `files` are the files in `subdir`. Equivalently, `(dirs, files) = os.listdir(subdir)`
+
+If `topdown` is `false` (default), then the result is bottom-up, which means subdirectories are emitted by their parents. Otherwise, a directory is emitted, and then its subdirectories are.
+
+---
+
 
 ## `os.mutex()`: Mutual exclusion {#mutex}
 
@@ -337,159 +505,4 @@ Polls the thread and returns whether it is still alive
 </div>
 
 ---
-
-## `os.getenv(key, defa=none)`: Get environment variable {#getenv}
-{: .method }
-
-<div class="method-text" markdown="1">
-Search for the [environment variable](https://en.wikipedia.org/wiki/Environment_variable) with the name `key`, or throw a `KeyError` if it was not found
-
-If `defa` is given, no error is thrown, and it is returned instead
-
-</div>
-
----
-
-## `os.setenv(key, val)`: Set environment variable {#setenv}
-{: .method }
-
-<div class="method-text" markdown="1">
-Set an [environment variable](https://en.wikipedia.org/wiki/Environment_variable) with the name `key` to the given value `val`
-
-</div>
-
----
-
-## `os.listdir(path)`: List directory contents {#listdir}
-{: .method }
-
-<div class="method-text" markdown="1">
-Returns a tuple of `(dirs, files)` which are the sub-directories and files within `path` on disk. Throws an error if `path` is not a valid directory
-
-`path` should be either [`str`](/builtins#str) or [`os.path`](#path).
-
-</div>
-
----
-
-## `os.mkdir(path, mode=0o777, parents=false)`: Make a directory {#mkdir}
-{: .method }
-
-Creates a new directory `path` on the filesystem, with a given mode
-
-On some platforms, `mode` may be ignored, but it is meant to be a permissions mask given in octal. 
-
-`path` should be either [`str`](/builtins#str) or [`os.path`](#path).
-
----
-
-## `os.rm(path, parents=false)`: Remove a directory {#rm}
-{: .method }
-
-Removes a file or directory from the filesystem
-
-If `parents` is true, and `path` refers to a directory, then it is recursively deleted (similar to `mkdir -p` in the shell). However, if `parents` is `false`, and `path` is a non-empty directory, an exception is thrown.
-
----
-
-## `os.fstat(fd)`: Query information about a file descriptor {#fstat}
-{: .method }
-
-Queries information about an open file descriptor `fd` (which should be an [`int`](/builtins#int) or integral value).
-
-Returns an [`os.stat`](#stat) object
-
----
-
-## `os.lstat(path)`: Query filesystem information without following symbolic links {#lstat}
-{: .method }
-
-Queries information about a path in the file system, but does not follow symbolic links. So, if you call it with `path` being a symbolic link, it will return information about the link itself, rather than the path pointed to by the link.
-
-Returns an [`os.stat`](#stat) object
-
----
-
-## `os.stat(path)`: Query filesystem information {#stat}
-{: .method }
-
-This type represents status of a file or directory or link on a filesystem. It is also callable as a function, which performs a query on the given path.
-
-Queries information about a path in the file system, but does not follow symbolic links. So, if you call it with `path` being a symbolic link, it will return information about the link itself, rather than the path pointed to by the link.
-
-
-See [`os.fstat`](#fstat) and [`os.lstat`](#lstat) for querying information about file descriptors and without following symbolic links.
-
-#### os.stat.gid {#stat.gid}
-{: .method .no_toc }
-<div class="method-text" markdown="1">
-Group ID and name of the owner
-</div>
-
-#### os.stat.uid {#stat.uid}
-{: .method .no_toc }
-<div class="method-text" markdown="1">
-User ID and name of the owner
-</div>
-
-
-#### os.stat.dev {#stat.dev}
-{: .method .no_toc }
-<div class="method-text" markdown="1">
-This attribute is an integer representing the device on which the queried entry is located. This is highly platform specific, and is often encoded as major/minor versions.
-
-On Unix-like OSes, for example, you can extract it like such:
-
-```ks
->>> x = os.stat("File.txt")
-<os.stat dev=2049, inode=19138881, gid=1000, uid=1000, size=4249, mode=0o100664>
->>> major = (x.dev >> 8) & 0xFF
-8
->>> minor = x.dev & 0xFF
-1
-```
-</div>
-
-#### os.stat.inode {#stat.inode}
-{: .method .no_toc }
-<div class="method-text" markdown="1">
-This attribute is an integer representing the [inode](https://en.wikipedia.org/wiki/Inode) within the filesystem, which can be thought of as an ID.
-</div>
-
-#### os.stat.size {#stat.size}
-{: .method .no_toc }
-<div class="method-text" markdown="1">
-This attribute is an integer representing the size in bytes of the file
-</div>
-
-#### os.stat.mtime {#stat.mtime}
-{: .method .no_toc }
-<div class="method-text" markdown="1">
-This attribute is a [`float`](/builtins#float) representing the time of last modification (time since epoch).
-</div>
-
-#### os.stat.atime {#stat.mtime}
-{: .method .no_toc }
-<div class="method-text" markdown="1">
-This attribute is a [`float`](/builtins#float) representing the time of last access (time since epoch).
-</div>
-
-#### os.stat.ctime {#stat.mtime}
-{: .method .no_toc }
-<div class="method-text" markdown="1">
-This attribute is a [`float`](/builtins#float) representing the time of last status change (time since epoch).
-</div>
-
----
-
-## `os.walk(path='.', topdown=false)`: Filesystem walk iterator {#walk}
-
-This type represents a recursive top-down or bottom-up iterator through directories.
-
-Being a stateful iterator, it can be iterated via the [`next`](/builtins#next) or in a `for` loop. It yields tuples of `(subdir, dirs, files)`, where `subdir` is the current directory being emitted, and `dirs` are the directories in `subdir`, and `files` are the files in `subdir`. Equivalently, `(dirs, files) = os.listdir(subdir)`
-
-If `topdown` is `false` (default), then the result is bottom-up, which means subdirectories are emitted by their parents. Otherwise, a directory is emitted, and then its subdirectories are.
-
----
-
 

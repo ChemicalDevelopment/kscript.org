@@ -117,6 +117,20 @@ Returns a boolean indicating whether the end-of-file (EOF) has been reached
 Closes the IO and disables further reading/writing
 </div>
 
+
+
+
+#### io.BaseIO.printf(self, fmt, *args) {#BaseIO.printf}
+{: .method .no_toc }
+
+<div class="method-text" markdown="1">
+Print formatted text to `self`. Does not include a line break or spaces between arguments.
+
+See [`printf`](/builtins#printf) for documentation on the `fmt` string and semantics
+
+</div>
+
+
 ---
 
 ## `io.BytesIO`: In-memory bytes buffer IO {#BytesIO}
