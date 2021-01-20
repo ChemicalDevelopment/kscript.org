@@ -16,7 +16,7 @@ This page documents comparisons between kscript and other programming languages.
 
 ## kscript vs. Python
 
-[Python](https://www.python.org/) and kscript are probably the closest languages in this page. They share a similar [object-oriented](https://en.wikipedia.org/wiki/Object-oriented_programming) and [duck-typed](https://en.wikipedia.org/wiki/Duck_typing) philosophy. Scoping rules are also similar, as there are 2 kinds of scope: global and function. They also share a lot of the same keywords (as a lot of languages do). A significant difference is that Python
+[Python](https://www.python.org/) and kscript are probably the closest languages in this page. They share a similar [object-oriented](https://en.wikipedia.org/wiki/Object-oriented_programming) and [duck-typed](https://en.wikipedia.org/wiki/Duck_typing) philosophy. Scoping rules are also similar, as there are 2 kinds of scope: global and function. They also share a lot of the same keywords (as a lot of languages do).
 
 A somewhat significant difference is that Python has [syntactically significant whitespace](https://wiki.c2.com/?SyntacticallySignificantWhitespaceConsideredHarmful), whereas kscript only requires whitespace between identifiers and some tokens. This is a holy war in and of itself, and many good arguments on both sides. However, kscript ultimately chose `{}` blocks and non-significant whitespace for (mainly) two reasons (which are related and similar in many ways): 
 

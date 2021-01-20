@@ -20,7 +20,7 @@ Instances of types can be created with literals or calls to the constructor, whi
 
 There is also a syntactic sugar that allows conversion to a type on the right hand side of a value using the `as` operator. For example, `int("123")` is the same as `"123" as int`, which uses less parentheses and can be helpful/more readable in some circumstances. It can also be chained, if you have `float(int("123"))` (converting to an [`int`](/builtins#int) then a [`float`](/builtins#float)), you can equivalently write `"123" as int as float` or `("123" as int) as float`. This can help readability in many places
 
-The type of an object can be determined via the [type](/builtins#type) function. For example, `type(123) == int`. You can also check whether a type is a sub-type of another type via the [issub](/builtins/#issub) function. For example: `issub(type(123), int) == true`, but `issub(type(123), str) == false`. You can check whether an object is an instance of a given type (or subtype of that type) via the [isinst](/builtins/#isinst) function.
+The type of an object can be determined via the [type](/builtins#type) function. For example, `type(123) == int`. You can also check whether a type is a sub-type of another type via the [issub](/builtins/#issub) function. For example: `issub(type(123), int) == true`, but `issub(type(123), str) == false`. You can check whether an object is an instance of a given type (or subtype of that type) via the [isinst](/builtins/#isinst) function. Specifically, `issub(type(x), y) == isinst(x, y)`
 
 
 ## Viewing Inheritance Trees

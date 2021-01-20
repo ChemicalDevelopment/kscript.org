@@ -34,7 +34,7 @@ Documentation is available at [kscript.org](https://kscript.org), which provides
 
 kscript was designed to be a tool useful in many different circumstances -- as a computer calculator, as a task-automation language, GUI development language, numerical programming, and more. A few languages may come to mind -- namely Python, tcl, and so forth.
 
-I found that I had issues with some choices the Python team made. Syntactically, I dislike required whitespace, and dislike Python's overuse of `:`. . I feel that many Python modules (for example, `os`) do not give the best interface to their functionality, and often require the programmer to use platform-specific code. I'd like to conclude this paragraph with a redeeming note -- Python has been very successful and I largely do enjoy the language (even though I have my complaints), and even borrow the great ideas Python has had.
+I found that I had issues with some choices the Python team made. Syntactically, I dislike required/syntactically-significant whitespace, and dislike Python's overuse of `:`. . I feel that many Python modules (for example, `os`) do not give the best interface to their functionality, and often require the programmer to use platform-specific code. I'd like to conclude this paragraph with a redeeming note -- Python has been very successful and I largely do enjoy the language (even though I have my complaints), and even borrow the great ideas Python has had.
 
 To see comparisons of kscript to other languages, see [more/compare](/more/compare)
 

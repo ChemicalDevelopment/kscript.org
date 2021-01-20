@@ -179,13 +179,13 @@ This attribute is an integer representing the size in bytes of the file
 This attribute is a [`float`](/builtins#float) representing the time of last modification (time since epoch).
 </div>
 
-#### os.stat.atime {#stat.mtime}
+#### os.stat.atime {#stat.atime}
 {: .method .no_toc }
 <div class="method-text" markdown="1">
 This attribute is a [`float`](/builtins#float) representing the time of last access (time since epoch).
 </div>
 
-#### os.stat.ctime {#stat.mtime}
+#### os.stat.ctime {#stat.ctime}
 {: .method .no_toc }
 <div class="method-text" markdown="1">
 This attribute is a [`float`](/builtins#float) representing the time of last status change (time since epoch).
@@ -193,13 +193,13 @@ This attribute is a [`float`](/builtins#float) representing the time of last sta
 
 ---
 
-## `os.pipe()`: Create a new pipe {#path}
+## `os.pipe()`: Create a new pipe {#pipe}
 
 Creates a new pipe, and returns a tuple of `(readio, writeio)` representing the readable and writable ends as [`io.RawIO`](/modules/io#RawIO) objects.
 
 ---
 
-## `os.dup(fd, to=-1)`: Duplicate a file descriptor {#path}
+## `os.dup(fd, to=-1)`: Duplicate a file descriptor {#dup}
 
 Duplicates an open file descriptor `fd` (which an be a [`io.RawIO`](/io#RawIO), [`io.FileIO`](/io#FileIO), or integral value).
 
@@ -207,13 +207,13 @@ If `to < 0` (default), then this function creates a new file descriptor and retu
 
 ---
 
-## `os.fork()`: Fork the process {#path}
+## `os.fork()`: Fork the process {#fork}
 
 Forks the process, creating a new child process, after which the parent and the child will execute the same code. This function returns `0` in the child process, and the process ID (PID) in the parents
 
 ---
 
-## `os.exec(cmd)`: Execute a shell command {#path}
+## `os.exec(cmd)`: Execute a shell command {#exec}
 
 Execute a command as if typed into the default system shell, and return the exit code
 
@@ -319,6 +319,15 @@ Throws an `Error` if it was an empty path
 >>> os.path('a/b/c.txt').last()
 'c.txt'
 ```
+</div>
+
+#### os.path.real(self) {#path.real}
+{: .method .no_toc }
+
+<div class="method-text" markdown="1">
+Determines the full real path on the filesystem, or throws an error if it doesn't exist.
+
+Uses the 'realpath()' function in C
 </div>
 
 
