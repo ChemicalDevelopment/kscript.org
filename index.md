@@ -42,13 +42,15 @@ To see comparisons of kscript to other languages, see [more/compare](/more/compa
 
 kscript is developed by free software enthusiasts, under the organization [ChemicalDevelopment](https://chemicaldevelopment.us). Feel free to contact current authors with questions, comments, or concerns at any time:
 
-  * [Cade Brown <cade@kscript.org>](mailto:cade@kscript.org)
-  * [Gregory Croisdale <greg@kscript.org>](mailto:greg@kscript.org)
+  * [Cade Brown &lt;cade@kscript.org&gt;](mailto:cade@kscript.org)
+  * [Gregory Croisdale &lt;greg@kscript.org&gt;](mailto:greg@kscript.org)
+
+See more [here](/contact)
 
 
 ## Basic Examples
 
-Some examples can be ran directly as an option to `-e/--expr`, or ran in the interactive interpeter via `-`. Some are recommended to save to a file, and run directly via `ks <filename>`.
+Some examples can be ran directly as an option to `ks -e`, or ran in the interactive interpeter via `ks -`. Some are recommended to save to a file, and run directly via `ks <filename>`.
 
 You can see a list of examples in [the path '/examples'](https://github.com/ChemicalDevelopment/kscript/tree/master/examples)
 

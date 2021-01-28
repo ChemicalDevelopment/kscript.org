@@ -3,17 +3,15 @@ layout: default
 parent: Modules
 title: 'm: Math'
 permalink: /modules/m
+nav_order: 40
 ---
 
 # Math Module ('import m')
 {: .no_toc }
 
- * TOC
-{:toc}
-
 The math module (`m`) provides functionality to aid in mathematical problems/needs. This module contains common mathematical constants (such as $\pi$, $\tau$, $e$, and so forth), as well as functions that efficiently and accurately compute commonly used functions (such as $\sin$, $\cos$, $\Gamma$, and so forth). This module also includes some integer and number-theoretic functions, such as computing the greatest common denominator ('gcd'), binomial coefficients, and primality testing.
 
-This module is meant to work with the builtin [`number`](/builtins#number) types and subtypes, such as [`int`](/builtins#int), [`float`](/builtins#float), and [`complex`](/builtins#complex)
+This module is meant to work with the types that follow the [`number`](/builtins#number) pattern, such as [`int`](/builtins#int), [`float`](/builtins#float), and [`complex`](/builtins#complex). Most functions are defined for real and complex evaluation. If a real number is given, then (generally) a real number is returned. If a complex number is given, then (generally) a complex number is returned. If a real number is given (for example, to [`m.sqrt`](#sqrt)) and the result would be a complex number (i.e. `m.sqrt(-1)`), then an error is thrown (this makes it easy to find bugs, and in general real numbers are what most people care about -- and they would like an error on code such as `m.sqrt(-1)`). To get around this, you can write: `m.sqrt(complex(-1))`, and the result will always be a `complex`, and an error won't be thrown for negative numbers.
 
 Constants are given in maximum precision possible within a [`float`](/builtins#float), but for all of these constants, their value is not exact. This causes some issues or unexpected results. For example, mathematically, $\sin(\pi) = 0$, but `m.sin(m.pi)` is approximately equal to `1.22464679914735e-16`. This is expected when using finite precision. Just make sure to keep this in mind. 
 
@@ -31,9 +29,14 @@ if m.isclose(m.sin(m.pi), 0), ...
 ```
 
 
+ * TOC
+{:toc}
+
+---
+
 ## Constants
 
-#### `m.pi`: Pi ($\pi$), the circle constant {#floor}
+#### `m.pi`: Pi ($\pi$), the circle constant {#pi}
 {: .method }
 <div class="method-text" markdown="1">
 [Pi](https://en.wikipedia.org/wiki/Pi) ($\pi$) is the ratio of a circle's circumference to its diameter
@@ -46,7 +49,7 @@ if m.isclose(m.sin(m.pi), 0), ...
 
 ---
 
-#### `m.tau`: Pi ($\tau$), another circle constant {#floor}
+#### `m.tau`: Pi ($\tau$), another circle constant {#tau}
 {: .method }
 <div class="method-text" markdown="1">
 [Pi](https://en.wikipedia.org/wiki/Pi) ($\pi$) is the ratio of a circle's circumference to its ratio
@@ -61,7 +64,7 @@ $\tau = 2 \pi$
 
 ---
 
-#### `m.e`: E ($e$), Euler's number {#floor}
+#### `m.e`: E ($e$), Euler's number {#e}
 {: .method }
 <div class="method-text" markdown="1">
 [E](https://en.wikipedia.org/wiki/E_(mathematical_constant)) ($e$), or Euler's number, is defined as $\sum_{n=0}^{\infty} \frac{1}{n!}$
@@ -74,7 +77,7 @@ $\tau = 2 \pi$
 
 ---
 
-#### `m.phi`: Phi ($\phi$), Golden ratio {#floor}
+#### `m.phi`: Phi ($\phi$), Golden ratio {#phi}
 {: .method }
 <div class="method-text" markdown="1">
 [The golden ratio](https://en.wikipedia.org/wiki/Golden_ratio) ($\phi$), is defined as $\frac{1+\sqrt 5}{2}$
@@ -87,7 +90,7 @@ $\tau = 2 \pi$
 
 ---
 
-#### `m.mascheroni`: gamma ($\gamma$), Euler-Mascheroni constant {#floor}
+#### `m.mascheroni`: gamma ($\gamma$), Euler-Mascheroni constant {#mascheroni}
 {: .method }
 <div class="method-text" markdown="1">
 The [Euler-Mascheroni constant](https://en.wikipedia.org/wiki/Euler%E2%80%93Mascheroni_constant) ($\gamma$), is defined as $\lim_{n \to \infty}( -\ln n + \sum_{k=1}^{n} \frac{1}{k} )$
@@ -154,6 +157,8 @@ Computes the [sign](https://en.wikipedia.org/wiki/Sign_function) of `x`, returni
 
 <div class="method-text" markdown="1">
 Computes the [square root](https://en.wikipedia.org/wiki/Square_root) of `x`
+
+If `x` is a real type (i.e. `int`, or `float`), then negative numbers will throw a [`MathError`](/builtins#MathError). You can write `m.sqrt(complex(x))` instead to always handle negative numbers
 </div>
 
 #### `m.cbrt(x)`: Cube root {#cbrt}

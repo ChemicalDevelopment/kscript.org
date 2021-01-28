@@ -3,16 +3,19 @@ layout: default
 parent: Modules
 title: 'os: Operating System'
 permalink: /modules/os
+nav_order: 20
 ---
+
 
 # Operating System Module ('import os')
 {: .no_toc }
 
+The operating system module (`os`) provides functionality and wrappers around operating system and platform specific functionality, including the filesystem, threads, and process information.
+
  * TOC
 {:toc}
 
-The operating system module (`os`) provides functionality and wrappers around operating system and platform specific functionality, including the filesystem, threads, and process information.
-
+---
 
 ## `os.argv`: Commandline arguments {#argv}
 
@@ -44,21 +47,15 @@ A writeable [io.FileIO](/modules/io#FileIO) object, which represents error outpu
 
 ## `os.getenv(key, defa=none)`: Get environment variable {#getenv}
 
-<div class="method-text" markdown="1">
 Search for the [environment variable](https://en.wikipedia.org/wiki/Environment_variable) with the name `key`, or throw a `KeyError` if it was not found
 
 If `defa` is given, no error is thrown, and it is returned instead
-
-</div>
 
 ---
 
 ## `os.setenv(key, val)`: Set environment variable {#setenv}
 
-<div class="method-text" markdown="1">
 Set an [environment variable](https://en.wikipedia.org/wiki/Environment_variable) with the name `key` to the given value `val`
-
-</div>
 
 ---
 
@@ -97,12 +94,9 @@ If `parents` is true, and `path` refers to a directory, then it is recursively d
 
 ## `os.listdir(path)`: List directory contents {#listdir}
 
-<div class="method-text" markdown="1">
 Returns a tuple of `(dirs, files)` which are the sub-directories and files within `path` on disk. Throws an error if `path` is not a valid directory
 
 `path` should be either [`str`](/builtins#str) or [`os.path`](#path).
-
-</div>
 
 ---
 
@@ -170,7 +164,7 @@ This attribute is an integer representing the [inode](https://en.wikipedia.org/w
 #### os.stat.size {#stat.size}
 {: .method .no_toc }
 <div class="method-text" markdown="1">
-This attribute is an integer representing the size in bytes of the file
+This attribute is an integer representing the size (in bytes) of the file
 </div>
 
 #### os.stat.mtime {#stat.mtime}
@@ -274,19 +268,19 @@ abs(L) == abs(R)
 In <thread 'main'>
 ```
 
-
-| Attribute | Description |
-|:-------|:--------|
-| `.root` |  |
-| `.parts` | A tuple containing the parts of the path |
-
-
-
 #### os.path.root {#path.root}
 {: .method .no_toc }
 
 <div class="method-text" markdown="1">
 The root of the path, which is either `none` for a relative path, or a [`str`](/builtins#str) with `/` (for Unix-like OSes), or something like `C:\` or `D:\` (for Windows-like OSes).
+
+```ks
+>>> os.path('/full/dir/file.txt').root
+'/'
+>>> os.path('rel/to/file.txt').root
+none
+```
+
 </div>
 
 #### os.path.parts {#path.parts}
@@ -294,6 +288,13 @@ The root of the path, which is either `none` for a relative path, or a [`str`](/
 
 <div class="method-text" markdown="1">
 Tuple of directory/path entries, which have been split on directory seperators
+
+```ks
+>>> os.path('/full/dir/file.txt').parts
+('full', 'dir', 'file.txt')
+>>> os.path('rel/to/file.txt').parts
+('rel', 'to', 'file.txt')
+```
 </div>
 
 
@@ -421,6 +422,52 @@ Example:
 
 ---
 
+
+## `os.thread(func, args=(), name=none)`: Threaded execution {#thread}
+
+A [thread](https://en.wikipedia.org/wiki/Thread_(computing)) can be thought of as a single strand of execution. Multiple threads may be running concurrently, meaning that they are both executing code within a certain timeframe, independent of each other.
+
+Internally, kscript interpreters may use a global interpreter lock (GIL), which prevents these threads from running at the same exact time (they will switch back and forth), except for cases where no kscript API is called (for example, number crunching, blocking IO, and so forth).
+
+The general process to create and run threads is like so:
+
+```ks
+>>> t = os.thread(print, range(10))
+<thread '0x55B0CDB907D0'>
+>>> t.start() # start the thread
+none
+0 1 2 3 4 5 6 7 8 9
+>>> # do more work here
+>>> t.join() # ensures the thread has finished, even though we know it has by the output
+```
+
+However, running with threads printing to the interpreter can create jumbled output.
+
+
+#### os.thread.start(self) {#thread.start}
+{: .method .no_toc }
+
+<div class="method-text" markdown="1">
+Begin executing a thread
+</div>
+
+#### os.thread.join(self) {#thread.join}
+{: .method .no_toc }
+
+<div class="method-text" markdown="1">
+Wait for a thread to finish executing and join it back
+</div>
+
+#### os.thread.isalive(self) {#thread.isalive}
+{: .method .no_toc }
+
+<div class="method-text" markdown="1">
+Polls the thread and returns whether it is still alive
+</div>
+
+---
+
+
 ## `os.proc(argv)`: Process execution {#proc}
 
 A [process](https://en.wikipedia.org/wiki/Process_(computing)) can be thought of as a running program, which has one or more threads.
@@ -470,48 +517,3 @@ Attempts to kill the process forcibly
 </div>
 
 ---
-
-## `os.thread(func, args=(), name=none)`: Threaded execution {#thread}
-
-A [thread](https://en.wikipedia.org/wiki/Thread_(computing)) can be thought of as a single strand of execution. Multiple threads may be running concurrently, meaning that they are both executing code within a certain timeframe, independent of each other.
-
-Internally, kscript interpreters may use a global interpreter lock (GIL), which prevents these threads from running at the same exact time (they will switch back and forth), except for cases where no kscript API is called (for example, number crunching, blocking IO, and so forth).
-
-The general process to creating threads is like so:
-
-```ks
->>> t = os.thread(print, range(10))
-<thread '0x55B0CDB907D0'>
->>> t.start() # start the thread
-none
-0 1 2 3 4 5 6 7 8 9
->>> # do more work here
->>> t.join() # ensures the thread has finished, even though we know it has by the output
-```
-
-However, running with threads printing to the interpreter can create jumbled output.
-
-
-#### os.thread.start(self) {#thread.start}
-{: .method .no_toc }
-
-<div class="method-text" markdown="1">
-Begin executing a thread
-</div>
-
-#### os.thread.join(self) {#thread.join}
-{: .method .no_toc }
-
-<div class="method-text" markdown="1">
-Wait for a thread to finish executing and join it back
-</div>
-
-#### os.thread.isalive(self) {#thread.isalive}
-{: .method .no_toc }
-
-<div class="method-text" markdown="1">
-Polls the thread and returns whether it is still alive
-</div>
-
----
-

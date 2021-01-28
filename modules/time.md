@@ -3,17 +3,20 @@ layout: default
 parent: Modules
 title: 'time: Time'
 permalink: /modules/time
+nav_order: 70
 ---
 
 # Time Module ('import time')
 {: .no_toc }
 
- * TOC
-{:toc}
-
 The time module (`time`) provides functionality related computers telling time, such as getting/setting the current time, converting times, and waiting for an amount of time. 
 
 Handling time is quite ugly -- calendars and systems of time are among the worst things standardized by human kind. Inconsistent, imperfect, and in many cases, limited by actual physical phenomena. As a result, this module is not as pure as many other modules, and has some very human-specific language, operations, and so forth. This is to be expected however, as things like the Earth, stars, and so forth cause things like leap seconds, timezones, etc. to be introduced. This module attempts to document what exactly is done and given by each function.
+
+ * TOC
+{:toc}
+
+---
 
 ## `time.ISO8601`:  {#ISO8601}
 
@@ -21,13 +24,19 @@ Handling time is quite ugly -- calendars and systems of time are among the worst
 
 This attribute of the `time` module expands to a string that can be passed to [`time.format`](#format) to result in ISO8601-format strings
 
+---
+
 ## `time.time()`: Current time {#time}
 
 Returns the current time as a floating point number representing the time since the Epoch in seconds. The Epoch is commonly 1970-01-01 (in [`ISO8601`](#ISO8601)) (January 1st, 1970)
 
+---
+
 ## `time.clock()`: Current process time {#clock}
 
 Returns the number of seconds since the process was started as a floating point number
+
+---
 
 ## `time.sleep(dur)`: Go to sleep {#sleep}
 
@@ -35,11 +44,15 @@ Causes the current thread to sleep for `dur` seconds (allows floating point numb
 
 If your platform did not provide a sane sleep function (such as `nanosleep()` or `usleep()` in its C-library), this function may only sleep to the nearest second.
 
+---
+
 ## `time.now()`: Get a DateTime referring the present {#now}
 
 Returns a [`time.DateTime`](#DateTime) object representing the current moment, in UTC
 
 See [`time.localnow()`](#localnow) for a local-timezone alternative
+
+---
 
 ## `time.localnow()`: Get a DateTime referring the present {#now}
 
@@ -47,11 +60,15 @@ Returns a [`time.DateTime`](#DateTime) object representing the current moment, i
 
 See [`time.now()`](#now) for a UTC-timezone alternative
 
+---
+
 ## `time.parse(val, fmt=time.ISO8601)`: Parse a DateTime {#parse}
 
 Parses a time (a `str` stored in `val`) according to a format `fmt`, and returns a [`time.DateTime`](#DateTime) object representing it.
 
 For format specifiers, see [`time.format`](#format) documentation
+
+---
 
 ## `time.format(val=none, fmt=time.ISO8601)`: Format a DateTime {#format}
 
@@ -212,6 +229,7 @@ Locale's default date representation
 Locale's default time representation
 </div>
 
+---
 
 ## `time.DateTime(obj=none, tz=none)`: Get a DateTime referring the present {#DateTime}
 
@@ -280,7 +298,7 @@ This attribute retrieves the minute of the hour as an integer
 #### time.DateTime.sec {#DateTime.sec}
 {: .method .no_toc }
 <div class="method-text" markdown="1">
-This attribute retrieves the second of the hour as an integer
+This attribute retrieves the second of the minute as an integer
 </div>
 
 #### time.DateTime.nano {#DateTime.nano}
@@ -288,3 +306,5 @@ This attribute retrieves the second of the hour as an integer
 <div class="method-text" markdown="1">
 This attribute retrieves the nanosecond of the second as an integer
 </div>
+
+---

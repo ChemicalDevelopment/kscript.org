@@ -3,17 +3,20 @@ layout: default
 parent: Modules
 title: 'io: Input/Output'
 permalink: /modules/io
+nav_order: 30
 ---
 
 # Input/Output Module ('import io')
 {: .no_toc }
 
- * TOC
-{:toc}
-
 The input/output module (`io`) provides functionality related to text and binary streams, and allows generic processing on streams from many sources.
 
 Specifically, it provides file access (through [`io.FileIO`](#FileIO)), as well as in-memory stream-like objects for text ([`io.StringIO`](#StringIO)), as well as bytes ([`io.BytesIO`](#BytesIO)). These types have similar interfaces such that they can be passed to functions and operated on generically. For example, you could write a text processor that iterates over lines in a file and performs a search (like `grep`), and then a caller could actually give a `io.StringIO` and the search method would work exactly the same. Similarly, it is often useful to build up a file by using [`.write()`](#BaseIO.write), so that when outputting to a file, large temporary strings are not being built. However, sometimes you want to be able to build without creating a temporary file -- you can substitute an `io.StringIO` and then convert that to a string afterwards.
+
+ * TOC
+{:toc}
+
+---
 
 ## `io.Seek`: Enumeration of 'whence' reference points {#Seek}
 
@@ -117,9 +120,6 @@ Returns a boolean indicating whether the end-of-file (EOF) has been reached
 Closes the IO and disables further reading/writing
 </div>
 
-
-
-
 #### io.BaseIO.printf(self, fmt, *args) {#BaseIO.printf}
 {: .method .no_toc }
 
@@ -133,14 +133,6 @@ See [`printf`](/builtins#printf) for documentation on the `fmt` string and seman
 
 ---
 
-## `io.BytesIO`: In-memory bytes buffer IO {#BytesIO}
-
-Represents an IO for byte-based information, being built in memory (i.e. not as a file on disk)
-
-
-This is a subtype of [`io.BaseIO`](#BaseIO), which implements all the builtin methods (see that type for functionality)
-
----
 
 ## `io.FileIO`: Access a file as a stream {#FileIO}
 
@@ -198,6 +190,17 @@ This attribute retrives the file descriptor associated with the stream
 
 ## `io.StringIO`: In-memory string buffer IO {#StringIO}
 
-Represents an IO for textual information, being built in memory (i.e. not as a file on disk). It can be used in places where [`io.FileIO`](#FileIO).
+Represents an IO for textual information, being built in memory (i.e. not as a file on disk). It can be used in places where [`io.FileIO`](#FileIO) is typically used.
+
+This is a subtype of [`io.BaseIO`](#BaseIO), which implements all the builtin methods (see that type for functionality).
 
 ---
+
+## `io.BytesIO`: In-memory bytes buffer IO {#BytesIO}
+
+Represents an IO for byte-based information, being built in memory (i.e. not as a file on disk)
+
+This is a subtype of [`io.BaseIO`](#BaseIO), which implements all the builtin methods (see that type for functionality)
+
+---
+
