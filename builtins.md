@@ -200,7 +200,7 @@ See: [`number.__div`](#number.__div), for normal division
 <div class="method-text" markdown="1">
 Computes modulo (`L % R`), with normal value coercion rules, except that complex numbers throw a `MathError`
 
-The result has the same sign as `L`
+The result has the same sign as `R`
 
 For floating point numbers, the value is accurate to the precision of the type, which is to say non-exact. See [`float`](#float) for information on accuracy.
 
@@ -356,7 +356,7 @@ print (MyEnum.MemberA as int)
 
 ### `float`: Real type representing a floating point value {#float}
 
-[Floating point numbers](https://en.wikipedia.org/wiki/Floating-point_arithmetic) are limited by machine precisions. Specifically, the reference implementation of kscript uses the `C` double type, which is commonly an `binary64` format (i.e. 64 bit IEEE floating point). This means that certain operations may be limited, or truncated in precision. 
+[Floating point numbers](https://en.wikipedia.org/wiki/Floating-point_arithmetic) are limited by machine precisions. Specifically, the reference implementation of kscript uses the `C` double type, which is commonly in `binary64` format (i.e. 64 bit IEEE floating point). This means that certain operations may be limited, or truncated in precision. 
 
 In addition to real numbers, [`float`](/builtins#float) can represent infinite values (positive and negative)
 

@@ -1,6 +1,7 @@
 ---
 layout: default
 title: 'Regular Expressions'
+nav_order: 40
 parent: More
 ---
 
@@ -55,13 +56,14 @@ CHAR     = ? unicode character ?
 
 ## NFA Inspection
 
-kscript allows you to inspect regular expressions, as [nondeterministic finite automata](https://en.wikipedia.org/wiki/Nondeterministic_finite_automaton). To do this, you should first convert a regex pattern into a [`graph`](/builtins#graph):
+kscript allows you to inspect regular expressions, as [nondeterministic finite automata](https://en.wikipedia.org/wiki/Nondeterministic_finite_automaton). To do this, you should first convert a regex pattern into a [`util.Graph`](/modules/util#Graph):
 
 ```ks
+>>> import util
 >>> pat = `a*b`
 `a*b`
->>> nfa = pat as graph
-graph(['s0', 's1', 's2', 's3'], [(0, 1), (0, 2), (1, 0, 'a'), (2, 3, 'b')])
+>>> nfa = pat as util.Graph
+util.Graph(['s0', 's1', 's2', 's3'], [(0, 1), (0, 2), (1, 0, 'a'), (2, 3, 'b')])
 >>> print (nfa._dotfile())
 digraph G {
     0 [label="s0"];

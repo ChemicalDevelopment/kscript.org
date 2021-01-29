@@ -2,6 +2,7 @@
 layout: default
 parent: More
 title: 'Templates'
+nav_order: 30
 permalink: /more/templates
 ---
 

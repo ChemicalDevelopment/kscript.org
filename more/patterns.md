@@ -2,6 +2,7 @@
 layout: default
 parent: More
 title: 'Patterns'
+nav_order: 20
 permalink: /more/patterns
 ---
 
@@ -61,6 +62,4 @@ Duck is flying
 Sparrow is flying
 AttrError: 'Whale' object had no attribute 'fly'
 ```
-
-Animals
 

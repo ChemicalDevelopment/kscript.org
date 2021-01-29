@@ -2,6 +2,7 @@
 layout: default
 parent: More
 title: 'Compare'
+nav_order: 50
 permalink: /more/compare
 ---
 

@@ -5,8 +5,16 @@ baseurl: ""
 url: "https://kscript.org"
 version: 0.0.1
 
-permalink: pretty
+permalink: /:year/:month/:day/:title/
+post_dirs: true
+
 exclude: ["node_modules/", "*.gemspec", "*.gem", "Gemfile", "Gemfile.lock", "package.json", "package-lock.json", "script/", "LICENSE.txt", "lib/", "bin/", "README.md", "Rakefile", "docs/tests/"]
+
+# Aux links for the upper right navigation
+aux_links:
+  "kscript on GitHub":
+    - "//github.com/ChemicalDevelopment/kscript"
+
 
 search_enabled: true
 search:
@@ -36,26 +44,17 @@ search:
 # Enable or disable heading anchors
 heading_anchors: true
 
-# Aux links for the upper right navigation
-aux_links:
-  "kscript on GitHub":
-    - "//github.com/ChemicalDevelopment/kscript"
-
 # Makes Aux links open in a new tab. Default is false
-aux_links_new_tab: false
+aux_links_new_tab: true
 
 # Sort order for navigation links
 # nav_sort: case_insensitive # default, equivalent to nil
-nav_sort: case_sensitive # Capital letters sorted before lowercase
-
-# Footer content
-# appears at the bottom of every page's main content
+# nav_sort: case_sensitive # Capital letters sorted before lowercase
+nav_sort: case_insensitive
 
 # Back to top link
 back_to_top: true
 back_to_top_text: "Back to top"
-
-footer_content: "Copyright &copy; 2020 ChemicalDevelopment"
 
 # Footer last edited timestamp
 last_edit_timestamp: true
