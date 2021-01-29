@@ -10,6 +10,8 @@ permalink: builtins
 
 Builtins are available in the global namespace in kscript -- which means they are available without the use of `import` statments, and do not belong to a particular module.
 
+If you don't find the type or function you're looking for here, that functionality may be in the [standard modules](/modules)
+
 
  * TOC
 {:toc}

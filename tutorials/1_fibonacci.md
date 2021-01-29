@@ -1,12 +1,12 @@
 ---
 layout: default
-title: Fibonacci
+title: 1. Fibonacci
 parent: Tutorials
 ---
 
-# Fibonacci
+# 1. Fibonacci
 
-[Fibonacci numbers](https://en.wikipedia.org/wiki/Fibonacci_number) make a good introduction to any programming language. This tutorial is designed to showcase the major features, such as recursion, argument parsing, and conversions.
+[Fibonacci numbers](https://en.wikipedia.org/wiki/Fibonacci_number) make a good introduction to any programming language. This tutorial is designed to showcase the major features, such as recursion, argument parsing, and conversions. After finishing this tutorial, you should have a program you can call from the commandline.
 
 Let's remind ourselves of the definition, where $F_n$ is the $n$th Fibonacci number: $F_0 = 0, F_1 = 1, F_{n} = F_{n-1} + F_{n-2}$. So, the sequence $F$ goes $0, 1, 1, 2, 3, 5, 8, 13, 21$ beginning with $n=0$. Our task is to generate a program to calculate the $n$th fibonacci number and print it out. Assuming our program is called `fib.ks`, here's how it should be used:
 
@@ -23,7 +23,7 @@ And so on. How can we do this? Let's get started
 
 ## First Program
 
-Our first iteration will be quite simple. We can define a function to calculate the $n$th Fibonacci number like so:
+Our first program will be quite simple. We can define a function to calculate the $n$th Fibonacci number like so:
 
 ```ks
 # Calculates the 'n'th Fibonacci number
@@ -55,6 +55,9 @@ However, it is best practice to add `import` statements at the top of the file, 
 
 
 ```ks
+#!/usr/bin/env ks
+# ^ the above allows us to run directly as an executable
+
 # Since we use 'os.argv'
 import os
 
@@ -73,9 +76,15 @@ n = int(os.argv[1])
 print (fib(n))
 ```
 
-Indeed, this does work. And, if we run without any arguments, we will get an `IndexError` (since `os.argv` only has `1` element, the `1` index is out of bounds). Additionally, if we have multiple input arguments given, they will be ignored (say, for instance, running `./fib.ks 1 2`).
+Indeed, this does work. And, if we run without any arguments, we will get an `IndexError` (since `os.argv` only has `1` element, the `1` index is out of bounds). Additionally, if we have multiple input arguments given, they will be ignored (say, for instance, running `./fib.ks 1 2`). 
 
-While these are okay for a basic prototype, let's see if we can improve our program
+If you get `Permission Denied` errors when you try and run `./fib.ks`, make sure to mark the file as executable by running (in your shell):
+
+```shell
+$ chmod +x fib.ks
+```
+
+While this is okay for a basic prototype, let's see if we can improve our program.
 
 
 ## Improved Program
@@ -83,12 +92,16 @@ While these are okay for a basic prototype, let's see if we can improve our prog
 We will use the `getarg` module to perform the argument parsing automatically. We will also use a special feature in kscript that allows implicit recursion, by calling the `...` singleton.
 
 ```ks
+#!/usr/bin/env ks
+# ^ the above allows us to run directly as an executable
+
 import getarg
 
 # Create an argument parser
 p = getarg.Parser('fib', '0.0.1', 'Calculates Fibonacci numbers', ['Cade Brown <cade@kscript.org>'])
 
 # Add a positional argument, which is of type 'int'
+# p.pos(name, desc, num=1, trans=str)
 p.pos('n', 'Which Fibonacci number to calculate', 1, int)
 
 # Default arguments are 'os.argv', so we don't have to mention that
@@ -108,4 +121,23 @@ func fib(n) {
 print (fib(args.n))
 
 ```
+
+You can run the program with `./fib.ks -h` to print a usage message:
+
+```shell
+$ ks ./fib.ks -h
+usage: fib [opts] n
+
+    n                           Which Fibonacci number to calculate
+
+opts:
+    -h,--help                   Prints this help/usage message and then exits
+    --version                   Prints the version information and then exits
+
+authors:
+    Cade Brown <cade@kscript.org>
+version: 0.0.1
+```
+
+(again, if you can't run the file, make sure to run `chmod +x fib.ks`)
 

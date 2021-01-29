@@ -3,6 +3,7 @@ layout: default
 parent: Modules
 title: 'ucd: Unicode Database'
 permalink: /modules/ucd
+nav_order: 140
 ---
 
 # Unicode Database Module ('import ucd')
