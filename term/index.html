@@ -1,3 +1,7 @@
+---
+permalink: /term
+---
+
 <!DOCTYPE html>
 <!-- term.html - kscript web terminal with HTML/JS
 
@@ -91,13 +95,17 @@ libks().then(function (_ks) {
     prompt: ">>> ",
   })
 
-  var a = location.href; 
-  var qt = decodeURIComponent(a.substring(a.indexOf("?")+1))
-  var qtl = qt.split(/\n|\\\\/)
-  for (var i in qtl) {
-    var line = qtl[i]
-    term.exec(line)
+  var a = location.href;
+  var qi = a.indexOf("?");
+  if (qi > 0) {
+    var qt = decodeURIComponent(a.substring(qi+1))
+    var qtl = qt.split(/\n|\\\\/)
+    for (var i in qtl) {
+      var line = qtl[i]
+      term.exec(line)
+    }
   }
+
 })
 </script>
 
