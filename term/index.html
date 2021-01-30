@@ -44,8 +44,7 @@ body {
     <script src="https://kscript.org/dist/v0.0.1/web/libks.js"></script>
     <script src="https://kscript.org/dist/v0.0.1/web/ks.js"></script>
 -->
-    <script src="/dist/v0.0.1/web/libks.js"></script>
-    <script src="/dist/v0.0.1/web/ks.js"></script>
+    <script src="/dist/v0.0.2/web/libks.js"></script>
 
     <!-- Terminal Area -->
     <div id="term"></div>
@@ -56,36 +55,32 @@ body {
  *
  * @author: Cade Brown <cade@kscript.org>
  */
-loadks().then(function (ks) {
-  // Dictionary of interpreter values
-  locals = ks._dict_new(0, 0)
-
-  // Creates a terminal with a callback for some text
-  $('#term').terminal(function(cmd, term) {
-    // Initialize with empty locals
+var ks = null;
+libks().then(function (_ks) {
+  ks = _ks;
+  ks.init()
+  locals = ks.make_dict()
+  var term = $('#term').terminal(function(cmd, term) {
     if (!term.has_init) {
       term.has_init = true;
       
-      ks._write_stdout.push(function (text) {
-        term.echo(text)
-      })
-      ks._write_stderr.push(function (text) {
-        term.echo(text)
-      })
+      // Add callbacks
+      ks._write_stdout.push(text => term.echo(text))
+      ks._write_stderr.push(text => term.echo(text))
     }
 
-    var ios = ks._iohash()
+    var ios = ks.iohash()
 
     // Perform the evaluation, and run a check which will catch and print any
     //   errors
     var res = ks.eval(cmd, "<>", locals)
-    ks.check()
 
     if (res) {
       // Print result to terminal if nothing else has been printed
-      if (ks._iohash() == ios) {
-        term.echo(res.toRepr())
+      if (ks.iohash() == ios) {
+        term.echo(ks.get_repr(res))
       }
+      ks.decref(res)
     } else {
       // Alert the user that there was an error
       term.echo("[[b;red;]ERROR] (see console)")
@@ -95,6 +90,14 @@ loadks().then(function (ks) {
     greetings: ks.verstr,
     prompt: ">>> ",
   })
+
+  var a = location.href; 
+  var qt = decodeURIComponent(a.substring(a.indexOf("?")+1))
+  var qtl = qt.split(/\n|\\\\/)
+  for (var i in qtl) {
+    var line = qtl[i]
+    term.exec(line)
+  }
 })
 </script>
 
