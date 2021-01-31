@@ -12,11 +12,15 @@ nav_order: 90
 The network module (`net`) provides functionality related to the world wide web, and other networks (i.e. LANs). 
 
 
- * TOC
-{:toc}
+Submodules:
+  * [`net.http`: HTTP](/modules/net/http)
 
 ---
 
+This module:
+
+  * TOC
+{:toc}
 
 ---
 
