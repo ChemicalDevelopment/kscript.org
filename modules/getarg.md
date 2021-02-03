@@ -191,7 +191,7 @@ $ k ex1.ks 2 -m 100 --hex
 
 </div>
 
-#### `Parser.pos(self, name, doc, num=1, trans=str, defa=none)` {#Parser.pos}
+#### getarg.Parser.pos(self, name, doc, num=1, trans=str, defa=none) {#Parser.pos}
 {: .method .no_toc }
 
 <div class="method-text" markdown="1">
@@ -215,7 +215,7 @@ Examples:
 
 </div>
 
-#### `Parser.opt(self, name, opts, doc, trans=str, defa=none)` {#Parser.opt}
+#### getarg.Parser.opt(self, name, opts, doc, trans=str, defa=none) {#Parser.opt}
 {: .method .no_toc }
 
 <div class="method-text" markdown="1">
@@ -234,7 +234,7 @@ Examples:
 
 </div>
 
-#### `Parser.flag(self, name, opts, doc, action=none)` {#Parser.flag}
+#### getarg.Parser.flag(self, name, opts, doc, action=none) {#Parser.flag}
 {: .method .no_toc }
 
 <div class="method-text" markdown="1">
@@ -259,7 +259,7 @@ Examples:
 </div>
 
 
-#### `Parser.parse(self, args=os.argv)` {#Parser.parse}
+#### getarg.Parser.parse(self, args=os.argv) {#Parser.parse}
 {: .method .no_toc }
 
 <div class="method-text" markdown="1">
