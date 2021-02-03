@@ -35,4 +35,23 @@ C and kscript are very different, even though [kscript is written in C](https://
 kscript code is easier to read, write, and distribute. And, you can write your application/library once and then run on many platforms without modification -- that's rare in C.
 
 
+## kscript vs. kscript
+
+To disambiguate throughout this section, I will refer to the our kscript as the "good kscript", and the other kscript (see here: [https://github.com/holgerbrandl/kscript](kscript)) as the "bad kscript".
+
+
+Good kscript:
+
+  * Written from scratch with amazing design in mind
+  * Broad and strong standard library with a wide range of features
+  * This awesome, unbiased documentation! (you're reading it right now, so obviously we've done something right)
+  * Has a legitimate domain ([kscript.org](https://kscript.org))
+
+Bad kscript:
+
+  * Written on top of the JVM, inherently prone to poor design (and thus, performance, maintainability, etc.)
+  * Apache commons (enough said)
+  * Uses Maven, and Java-based build systems (enough said)
+
+All jokes aside, the projects are quite different, although they are named the same. In general though, the other kscript interfaces with Kotlin, and thus is built on the JVM, and uses JVM-related tooling (like Maven, Gradlew, etc.). Personally I really dislike that ecosystem, and have found it to be messy, and use poor dependency management, as well as project support. But, some people love it, there's no accounting for taste.
 

@@ -275,7 +275,7 @@ In <thread 'main'>
 
 ### `int`: Integral type representing any integer {#int}
 
-[Integers](https://en.wikipedia.org/wiki/Integer) are any whole number, i.e. numbers which has no fractional component. The [`int`](/builtins#int) type is a subtype of `number`
+[Integers](https://en.wikipedia.org/wiki/Integer) are any whole number, i.e. numbers which has no fractional component. The [`int`](/builtins#int) type is a subtype of `number`. See: [syntax for integer literals](/syntax/literals#integers)
 
 Some languages (`C`, `C++`, `Java`, and so forth) have sized integer types which are limited to (See [this page](https://en.wikipedia.org/wiki/Integer_(computer_science))). For example, a `32` bit unsigned integer may only represent the values from $0$ to $2^{32}-1$. However, in kscript, all integers are of arbitrary precision -- which means they may store whatever values can fit in the main memory of your computer (which is an extremely large limit on modern computers, and you are unlikely to hit that limit in any practical application).
 
@@ -356,7 +356,7 @@ print (MyEnum.MemberA as int)
 
 ### `float`: Real type representing a floating point value {#float}
 
-[Floating point numbers](https://en.wikipedia.org/wiki/Floating-point_arithmetic) are limited by machine precisions. Specifically, the reference implementation of kscript uses the `C` double type, which is commonly in `binary64` format (i.e. 64 bit IEEE floating point). This means that certain operations may be limited, or truncated in precision. 
+[Floating point numbers](https://en.wikipedia.org/wiki/Floating-point_arithmetic) are limited by machine precisions. Specifically, the reference implementation of kscript uses the `C` double type, which is commonly in `binary64` format (i.e. 64 bit IEEE floating point). This means that certain operations may be limited, or truncated in precision. See: [syntax for float literals](/syntax/literals#floats)
 
 In addition to real numbers, [`float`](/builtins#float) can represent infinite values (positive and negative)
 
@@ -365,6 +365,7 @@ Float literals can be created, like [`int`](/builtins#int) literals, with litera
 Base 10 float literals may have an `e` or `E` after the main part of the literal (called the mantissa), followed by an optional sign and then an exponent, which is a form of scientific notation. For example, `1.2e3 == 1.2 * 10 ** 3 == 1200.0`.
 
 Non-base-10 floats (i.e. base 2, 8, and 16 literals) may have a `p` or `P` after the mantissa, followed by an exponent (which is in base 10). The base of the exponentiation is 2, and not 10. For example, `0b11.1p4 == 0b11.1 * 2 ** 4 == 56`.
+
 
 
 | Property | Common Value(s) | Explanation |
@@ -378,7 +379,7 @@ Non-base-10 floats (i.e. base 2, 8, and 16 literals) may have a `p` or `P` after
 
 ### `complex`: Complex type representing a pair of floating point components {#complex}
 
-[Complex numbers](https://en.wikipedia.org/wiki/Complex_number) can be represented in kscript as the [`complex`](/builtins#complex) type, which is a complex number containing both components as [`float`](/builtins#float)s. You can access the elements via the attributes `.re`, `.real` (for the real component) and `.im`, `.imag` for the imaginary components.
+[Complex numbers](https://en.wikipedia.org/wiki/Complex_number) can be represented in kscript as the [`complex`](/builtins#complex) type, which is a complex number containing both components as [`float`](/builtins#float)s. You can access the elements via the attributes `.re`, `.real` (for the real component) and `.im`, `.imag` for the imaginary components.  See: [syntax for complex literals](/syntax/literals#complexes)
 
 Complex litererals are created by adding an `i` or `I` suffix to a [`float`](/builtins#float) literal. Complex numbers are created by adding imaginary literals with float literals. For example, `1.0 + 2.0i` is an operation which adds `1.0` (real) and `2.0i` (imaginary), which results in a single complex numbers.
 
@@ -389,6 +390,8 @@ Unlike other numeric types, `abs()` of a complex number returns a [`float`](/bui
 ### `str`: String type representing Unicode text {#str}
 
 kscript uses [Unicode](https://en.wikipedia.org/wiki/Unicode), and specifically [utf-8](https://en.wikipedia.org/wiki/UTF-8) to store textual information. A [`str`](/builtins#str) is a string of Unicode codepoints (sometimes called Unicode characters). The empty string (`''`) is represented as a [`str`](/builtins#str) object of length 0, and single characters are [`str`](/builtins#str) objects of length 1. Longer strings can be made by concatenating, joining, or other processing methods.
+
+See [syntax for string literals](/syntax/literals#strings)
 
 [`str`](/builtins#str) literals can be created with quotation marks (`'` and `"` are both allowed) around some textual data. For example, `'abc'` is a [`str`](/builtins#str) of length 3, containing the first 3 lowercase letters of the English alphabet. You can also use triple quotes (`'''` and `"""`) for multi-line [`str`](/builtins#str) literals (i.e. they include line breaks). Escape sequences are also included, which are used to encode data that is either hard to type, may be encoded incorrectly on disk, or to increase readability. Here is a table of escape codes that are present in [`str`](/builtins#str)s:
 
