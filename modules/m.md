@@ -119,7 +119,7 @@ Is equivalent to:
 ```ks
 func isclose(x, y, abs_err=1e-6, rel_err=1e-6) {
     ad = abs(x - y)
-    ret ad <= abs_err && ad <= abs_err * max(abs(x), abs(y))
+    ret ad <= abs_err || ad <= abs_err * max(abs(x), abs(y))
 }
 ```
 </div>
@@ -361,7 +361,7 @@ Computes the [greatest common denominator](https://en.wikipedia.org/wiki/Greates
 {: .method }
 
 <div class="method-text" markdown="1">
-Computes the [extended greatest common denominator](https://en.wikipedia.org/wiki/Extended_Euclidean_algorithm) of `x` and `y`, returning `(g, s, t)` such that `x*s + y*t == g == `m.gcd(x, y)`:`
+Computes the [extended greatest common denominator](https://en.wikipedia.org/wiki/Extended_Euclidean_algorithm) of `x` and `y`, returning `(g, s, t)` such that `x*s + y*t == g == m.gcd(x, y)`
 
-If `abs(x) == abs(y)`, then `(g, 0, `m.sgn(y))`:` is returned
+If `abs(x) == abs(y)`, then `(g, 0, m.sgn(y))` is returned
 </div>

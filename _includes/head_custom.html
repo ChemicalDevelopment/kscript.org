@@ -34,139 +34,145 @@ hljs.initHighlightingOnLoad();
 
 hljs.registerLanguage("ks", function(e) {
 
+/* Language keywords */
 const KEYWORDS = [
-    '>>>',
-    'as',
-    'assert',
-    'async',
-    'await',
-    'break',
-    'type',
-    'cont',
-    'func',
+    'with',
     'del',
+    'import',
+    'from',
+    'as', 
+    'in',
+
+    'assert',
+    'break',
+    'cont',
+
+    'type',
+    'func',
+    'extends',
+    
+    'if',
     'elif',
     'else',
+
+    'while',
+
+    'for',
+
+    'try',
     'catch',
     'finally',
-    'for',
-    'from',
-    'if',
-    'import',
-    'in',
-    'throw',
+
     'ret',
-    'try',
-    'while',
-    'with',
-    'yield',
+    'throw',
 ];
 
-const BUILTINS = [
-    '__import',
-    'abs',
-    'all',
-    'any',
-    'ascii',
-    'bin',
-    'bool',
-    'breakpoint',
-    'bytearray',
-    'bytes',
-    'callable',
-    'chr',
-    'classmethod',
-    'compile',
-    'complex',
-    'delattr',
-    'enum',
-    'number',
-    'graph',
-    'dict',
-    'dir',
-    'divmod',
-    'enumerate',
-    'eval',
-    'exec',
-    'filter',
-    'float',
-    'format',
-    'frozenset',
-    'getattr',
-    'globals',
-    'hasattr',
-    'hash',
-    'help',
-    'hex',
-    'id',
-    'input',
-    'int',
-    'isinstance',
-    'issubclass',
-    'iter',
-    'len',
-    'list',
-    'locals',
-    'map',
-    'max',
-    'memoryview',
-    'min',
-    'next',
-    'object',
-    'oct',
-    'open',
-    'ord',
-    'pow',
-    'print',
-    'property',
-    'range',
-    'repr',
-    'reversed',
-    'round',
-    'set',
-    'setattr',
-    'slice',
-    'sorted',
-    'staticmethod',
-    'str',
-    'sum',
-    'super',
-    'tuple',
-    'type',
-    'vars',
-    'zip',
-];
-
+/* Literal values (similar to keywords) */
 const LITERALS = [
     '...',
     'false', 'true',
     'none',
     'undefined',
-    'inf',
-    'nan',
-];
+    'inf', 'nan',
+]
 
+
+/* Builtin names */
+const BUILTINS = [
+    '__argv',
+    '__stdin',
+    '__stdout',
+    '__stderr',
+
+    'object',
+    'type',
+    'number',
+    'int',
+    'enum',
+    'bool',
+    'float',
+    'complex',
+    'str',
+    'bytes',
+    'range',
+    'slice',
+    'tuple',
+    'list',
+    'set',
+    'dict',
+
+    'abs',
+    'pow',
+    'min',
+    'max',
+    'sum',
+
+    'bin',
+    'oct',
+    'hex',
+
+    'ord',
+    'chr',
+
+    'compile',
+    'eval',
+    'exec',
+
+    'enumerate',
+    'filter',
+    'map',
+    'zip',
+    'all',
+    'any',
+
+    'iter',
+    'next',
+    'len',
+    'hash',
+    'id',
+    'repr',
+    'print',
+    'printf',
+
+    'isinst',
+    'issub',
+
+    'input',
+    'exit',
+]
+
+/* Interpreter prompts */
 const PROMPT = {
-    className: 'meta',  begin: /^(>>>|\.\.\.) /
-};
+    className: 'meta', begin: /^(>>>|\.\.\.) /
+}
 
-const digitpart = '[0-9](_?[0-9])*';
-const pointfloat = `(\\b(${digitpart}))?\\.(${digitpart})|\\b(${digitpart})\\.`;
+/* Numeric helpers */
+const _EXP_E = '([eE][+-]?[0-9]+)';
+const _EXP_P = '([pP][+-]?[0-9]+)';
+const _I = '([iI])';
+
+/* Any number sequence */
 const NUMBER = {
     className: 'number', relevance: 0,
     variants: [
-        { begin: `(\\b(${digitpart})|(${pointfloat}))[eE][+-]?(${digitpart})[jJ]?\\b` },
-        { begin: `(${pointfloat})[jJ]?` },
+        { begin: `\\b0[bB]([0-1]+\\.[0-1]*)${_EXP_P}?${_I}?\\b` },
+        { begin: `\\b0[bB]([0-1]*\\.[0-1]+)${_EXP_P}?${_I}?\\b` },
+        { begin: `\\b0[bB]([0-1]+)${_EXP_P}?${_I}?\\b` },
+        { begin: `\\b0[oO]([0-7]+\\.[0-7]*)${_EXP_P}?${_I}?\\b` },
+        { begin: `\\b0[oO]([0-7]*\\.[0-7]+)${_EXP_P}?${_I}?\\b` },
+        { begin: `\\b0[oO]([0-7]+)${_EXP_P}?${_I}?\\b` },
+        { begin: `\\b0[xX]([0-9a-fA-F]+\\.[0-9a-fA-F]*)${_EXP_P}?${_I}?\\b` },
+        { begin: `\\b0[xX]([0-9a-fA-F]*\\.[0-9a-fA-F]+)${_EXP_P}?${_I}?\\b` },
+        { begin: `\\b0[xX]([0-9a-fA-F]+)${_EXP_P}?${_I}?\\b` },
 
-        { begin: '\\b([1-9](_?[0-9])*|0+(_?0)*)[jJ]?\\b' },
-        { begin: '\\b0[bB](_?[01])+\\b' },
-        { begin: '\\b0[oO](_?[0-7])+\\b' },
-        { begin: '\\b0[xX](_?[0-9a-fA-F])+\\b' },
 
-        { begin: `\\b(${digitpart})[jJ]\\b` },
+        { begin: `\\b(0[dD])?([0-9]+\\.[0-9]*)${_EXP_E}?${_I}?\\b` },
+        { begin: `\\b(0[dD])?([0-9]*\\.[0-9]+)${_EXP_E}?${_I}?\\b` },
+        { begin: `\\b(0[dD])?([0-9]+)${_EXP_E}?${_I}?\\b` },
     ]
 };
 
+/* String literals */
 const STRING = {
     className: 'string',
     contains: [hljs.BACKSLASH_ESCAPE],
@@ -193,6 +199,7 @@ const STRING = {
     ]
 };
 
+    /* Return language description */
     return {
         name: 'kscript',
         aliases: [ "ks", "kscript" ],
@@ -222,4 +229,3 @@ const STRING = {
 });
         
 </script>
-
