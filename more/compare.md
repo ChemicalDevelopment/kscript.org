@@ -37,7 +37,7 @@ kscript code is easier to read, write, and distribute. And, you can write your a
 
 ## kscript vs. kscript
 
-To disambiguate throughout this section, I will refer to the our kscript as the "good kscript", and the other kscript (see here: [https://github.com/holgerbrandl/kscript](kscript)) as the "bad kscript".
+To disambiguate throughout this section, I will refer to the our kscript as the "good kscript", and the other kscript (see here: [https://github.com/holgerbrandl/kscript](https://github.com/holgerbrandl/kscript)) as the "bad kscript".
 
 
 Good kscript:
