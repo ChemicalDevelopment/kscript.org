@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Overview
-nav_order: 1
+nav_order: 10
 description: "kscript is a dynamic programming language with a rich standard library, well suited to solve all sorts of problems"
 permalink: /
 ---
@@ -27,7 +27,10 @@ kscript is a programming language with expressive syntax, cross-platform support
 
 kscript ([https://kscript.org](https://kscript.org)) is a dynamic programming language with expressive syntax, cross platform support, and a rich standard library. Its primary aim is to allow developers to write platform agnostic programs that can run anywhere, and require little or no platform- or os- specific code.
 
-Documentation is available at [kscript.org](https://kscript.org), which provides examples, tutorials, and coverage of the standard library. Formal specifications are available at the GitHub repository ([https://github.com/ChemicalDevelopment/kscript](https://github.com/ChemicaldDvelopment/kscript)), within the `docs` folder.
+
+Most people want to use this site, [kscript.org](https://kscript.org), to learn about kscript which contains the developer blog, setup guide, and lots of useful tutorials. 
+
+Formal documentation is available at [docs.kscript.org](https://docs.kscript.org), which is good reference material, but doesn't show you how to get started and may be overwhelming to newbies. You can also check out [/docs](/docs) for a high-level guide to the documentation, with many helpful links.
 
 
 ## Why is kscript?
@@ -36,7 +39,7 @@ kscript was designed to be a tool useful in many different circumstances -- as a
 
 I found that I had issues with some choices the Python team made. Syntactically, I dislike required/syntactically-significant whitespace, and dislike Python's overuse of `:`. . I feel that many Python modules (for example, `os`) do not give the best interface to their functionality, and often require the programmer to use platform-specific code. I'd like to conclude this paragraph with a redeeming note -- Python has been very successful and I largely do enjoy the language (even though I have my complaints), and even borrow the great ideas Python has had.
 
-To see comparisons of kscript to other languages, see [more/compare](/more/compare)
+To see comparisons of kscript to other languages, see [/more/compare](/more/compare)
 
 ## Who is kscript?
 

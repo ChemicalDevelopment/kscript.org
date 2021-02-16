@@ -54,4 +54,3 @@ Bad kscript:
   * Uses Maven, and Java-based build systems (enough said)
 
 All jokes aside, the projects are quite different, although they are named the same. In general though, the other kscript interfaces with Kotlin, and thus is built on the JVM, and uses JVM-related tooling (like Maven, Gradlew, etc.). Personally I really dislike that ecosystem, and have found it to be messy, and use poor dependency management, as well as project support. But, some people love it, there's no accounting for taste.
-

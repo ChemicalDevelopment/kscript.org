@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Tutorials
-nav_order: 50
+nav_order: 40
 has_children: true
 autostart: true
 permalink: tutorials
