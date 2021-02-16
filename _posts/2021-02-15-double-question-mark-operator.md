@@ -12,7 +12,7 @@ This [operator](https://docs.kscript.org/#Operators), `??`, is an unique inventi
 
 ## What is it?
 
-Simply put, the `??` operator is an inline `try`/`catch` block, which tries and evaluate the left operand. If an exception was thrown while executing that, the exception is caught and ignored, and the right operand is attempted. If no exception was thrown in the left operand, then the right operand is never ran (aka short-circuiting it)
+Simply put, the `??` operator is an inline `try`/`catch` block, which tries to evaluate the left operand. If an exception was thrown while executing that, the exception is caught and ignored, and the right operand is attempted. If no exception was thrown in the left operand, then the right operand is never ran (aka short-circuiting it)
 
 Further, the `??` may be chained to create a series of attempts. If an exception occurs in the last expression on the right, then the exception is not caught and instead thrown upwards to the next `try`/`catch` statement. Example: `x(1) ?? y(1) ?? z(1)`
 
