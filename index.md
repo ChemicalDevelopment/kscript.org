@@ -13,7 +13,7 @@ permalink: /
 kscript is a programming language with expressive syntax, cross-platform support, and a rich standard library
 {: .fs-6 .fw-300 }
 
-[How To Install](/install#install-guide){: .btn .btn-primary .fs-5 .mb-4 .mb-md-0 .mr-2 } [How To Build](/install#build-guide){: .btn .btn-primary .fs-5 .mb-4 .mb-md-0 .mr-2 }
+[How To Install](/install){: .btn .btn-primary .fs-5 .mb-4 .mb-md-0 .mr-2 } [How To Build](/build){: .btn .btn-primary .fs-5 .mb-4 .mb-md-0 .mr-2 }
 
 ---
 

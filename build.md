@@ -8,13 +8,13 @@ permalink: build
 # Build Guide {#build-guide}
 {: .no_toc .fs-9 }
 
-This is a guide of how to build kscript. If you just want to run kscript programs, you probably just want to follow the [installation guide](#install-guide)
+This is the guide of how to build kscript. If you just want to run kscript programs, you probably just want to follow the [installation guide](/install)
 
 The source code is available [here](https://github.com/chemicaldevelopment/kscript). You can download specific versions from the ['releases' page](https://github.com/ChemicalDevelopment/kscript/releases).
 
 ## Unix-like OSes (MacOS, Linux, BSD, etc.)
 
-### Requirements
+#### Requirements
 
 Building on MacOS, Linux, or other Unix-like OSes is a similar process, and assumes that you have:
 
@@ -30,15 +30,16 @@ Building on MacOS, Linux, or other Unix-like OSes is a similar process, and assu
 
 Additionally, there are optional dependencies which can result in better performance, or more features in kscript. These are automatically detected during the configure stage, but none are hard requirements. Here is a list of them:
 
-  * [GMP](https://gmplib.org/) (`./configure --with-gmp on`): If included, use the GMP library for (faster) integer arithmetic. Otherwise, use a smaller stand-in library (called `minigmp`). 
+  * [GMP](https://gmplib.org/) (`./configure --with-gmp on`): If included, use the GMP library for (faster) integer arithmetic. Otherwise, use a smaller stand-in library (called `minigmp`) is used.
   * [FFI](https://sourceware.org/libffi/) (`./configure --with-ffi on`): If included, use the Foreign Function Interface (FFI) library to allow the `ffi` module to execute functions loaded dynamically at runtime. Otherwise, throw an error when such a function call is issued
   * [pthreads](https://en.wikipedia.org/wiki/POSIX_Threads) (`./configure --with-pthreads on`): If included (and it almost always is), then threading is enabled. Otherwise, an error is thrown when a thread spawn is attempted
   * [readline](https://tiswww.case.edu/php/chet/readline/rltop.html) (`./configure --with-readline on`): If included, use the GNU readline library with the `input()` builtin and the interactive interpreter. Otherwise, use un-line-edited interface
+  * [FFTW](http://www.fftw.org/) (`./configure --with-fftw3 on`): If included, FFTW library for faster transforms (in the `nx` module). Otherwise, use my own home-rolled FFT code (which is decently fast for power-of-two transforms).
 
 
-### Configure
+#### Configure
 
-To configure kscript, using defaults, run:
+To configure kscript, using defaults, run `./configure`:
 
 ```shell
 $ ./configure
@@ -65,7 +66,7 @@ Any problems, questions, concerns, etc. can be sent to:
 Cade Brown <brown.cade@gmail.com>
 ```
 
-That script should print out what elements were found on your installation. To see options, run with `-h` (output may differ slightly):
+That script should print out what elements were found on your installation. To see configuration options, run with `-h` (output may differ slightly):
 
 ```shell
 $ ./configure -h
@@ -88,9 +89,9 @@ Any questions, comments, or concerns can be sent to:
 Cade Brown <cade@kscript.org>
 ```
 
-### Compile
+#### Compile
 
-To compile kscript, run:
+After configuration, to compile kscript, run `make`:
 
 ```shell
 $ make
@@ -111,24 +112,24 @@ bin/ks
 lib/libks.so
 ```
 
-### Check (optional)
+#### Check (optional)
 
 To run a series of checks (i.e. sanity checks), you can run:
 
 ```shell
 $ make check
-PASSED: tests/t_basic.ks
-PASSED: tests/t_uninames.ks
+PASSED: tests/regex.ks
+PASSED: tests/basic.ks
 ...
 ... (many, many more)
 ...
-PASSED: tests/t_re.ks
+PASSED: tests/range.ks
 Success
 ```
 
-### Install (optional)
+#### Install (optional)
 
-To install kscript to your system, you can run:
+To install kscript to your system, you can run `sudo make install`:
 
 ```shell
 $ sudo make install
@@ -146,9 +147,8 @@ Which will install to whatever `--prefix` was given to `./configure` (default: `
 
 To uninstall, run `sudo make uninstall`
 
-  
+
 ## Windows
 
-The Visual Studio solution and projects are located in the `winbuild` directory. Good luck. (I will try and write a formal guide once I figure it all out myself -- I don't much care for Windows)
-
+The Visual Studio solution and projects are located in the `winbuild` directory. I am able to build by opening those with Visual Studio (*not* Visual Studio Code), and running in the IDE. Good luck. (I will try and write a formal guide once I figure it all out myself -- I don't much care for Windows build system)
 
