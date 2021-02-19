@@ -1,10 +1,10 @@
 ---
 layout: default
-title: 1. Fibonacci
+title: Fibonacci
 parent: Tutorials
 ---
 
-# 1. Fibonacci
+# Fibonacci
 
 [Fibonacci numbers](https://en.wikipedia.org/wiki/Fibonacci_number) make a good introduction to any programming language. This tutorial is designed to showcase the major features, such as recursion, argument parsing, and conversions. After finishing this tutorial, you should have a program you can call from the commandline.
 
