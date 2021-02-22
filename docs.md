@@ -7,7 +7,7 @@ permalink: docs
 
 # Docs
 
-kscript documentation is available at [https://docs.kscript.org](https://docs.kscript.org) as a single-page
+kscript documentation is available at [https://docs.kscript.org](https://docs.kscript.org) as a single page (so it is easy to search, navigate, and download)
 
 
 Here are a few quick-links to the major parts:

@@ -103,6 +103,32 @@ Here are some valid identifiers that can be names in kscript:
 
 These reference a variable, in some scope. If it is defined within the current function that value is used. Then, other functions that the current function is within are searched though, and finally the global scope is searched. If none of those scopes contained a definition for the variable name, then an error is thrown
 
+## Operators
+
+Like most languages, kscript supports operators. Specifically, it supports unary, binary, and ternary operators. You can see a full list [here](https://docs.kscript.org/#Operators). There are precedences to the operators, which match most other programming languages. So, for example, `a + b * c` is parsed the same as `a + (b * c)`, whereas `a + b + c` is parsed the same as `(a + b) + c`.
+
+Check out the [official operators documentation]([here](https://docs.kscript.org/#Operators)) for the full list of operators and their precedences.
+
+In general, the operators work like you'd expect them to. `+` add numeric types, `-` subtracts them, and so forth. One difference in kscript compared to some languages is the division operator(s). In kscript, there is normal division (`/`) and floored division (`//`). Normal division returns a close approximation to the true value. For example, `1 / 2 == 0.5` (yes, two integers divided with `/` will result in a floating point value). Floored division, however, will return an integer of the result, rounded down. This means that `1 // 2 == 0` and `-1 // 2 == -1`.
+
+Here are some examples:
+
+```ks
+>>> 2 + 3
+5
+>>> 2 ** 3   # Exponentiation
+8
+```
+
+Operators, however, also have uses for types other than numbers. Take, for example, the `+` operator (the 'add' operator). It is overloaded to support `list` objects as well:
+
+```ks
+>>> [1, 2] + [3, 4]
+[1, 2, 3, 4]
+```
+
+You can check specific types to see what operators they overload
+
 
 ## Nested Expressions
 
@@ -147,6 +173,8 @@ To create a tuple, you begin with `(`, followed by the contents of the list, sep
 
 Dictionaries are ordered by insertion order of the key, which is reset when a key is deleted.
 
+Dictionaries in kscript are represented by the [`dict`](https://docs.kscript.org/#tuple) type.
+
 ```ks
 >>> {}
 {}
@@ -155,4 +183,199 @@ Dictionaries are ordered by insertion order of the key, which is reset when a ke
 >>> {'a': 1, 'b': 2, 'a': 3}    # 'a' is overwritten, but keeps its place
 {'a': 3, 'b': 2}
 ```
+
+Dictionaries can be subscripted to retrieve the value associated with a given key:
+
+```ks
+>>> {'a': 1, 'b': 2}['a']
+1
+```
+
+
+## Statements
+
+## Import Statements
+
+[Import statements](https://docs.kscript.org/#Import_Statement) are specified with the `import` keyword and can be used to import a module with a given name into the current namespace. See the [standard modules](https://docs.kscript.org/#Modules) for example modules that are always available
+
+
+Examples:
+
+```ks
+# imports operating system module
+import os
+
+# Prints: <'os' module from '<builtin>'>
+print (os)
+
+# imports networking module
+import net
+
+```
+## Throw Statements
+
+[Throw statements](https://docs.kscript.org/#Throw_Statement) are specified with the `throw` keyword and are used to throw an exception up the call stack, to a corresponding `try` statement.
+
+
+Examples:
+
+```ks
+# Throw an error
+throw Error("This is really bad!")
+
+# Throws a different type of error
+throw MathError("This isn't adding up...")
+
+```
+
+## Try Statements
+
+[Try statements](https://docs.kscript.org/#Try_Statement) are specified with the `try` keyword, a body of possibly-volatile code, followed by `catch` clauses and, optionally, a `finally` clause.
+
+
+Here are some examples:
+
+```ks
+
+try {
+    possibly_bad_operation()
+} catch NameError as err {
+    # Unknown name
+} catch MathError as err {
+    # Some math issue
+} finally {
+    # Free some resources...
+}
+
+```
+
+If there are no matching `catch` clauses with a type that matches the exception type thrown, then the `finally` block is ran, and the exception is not handled, but rather keeps travelling upwards until another `try`/`catch` statement is found, or, if there are no more, then the program halts and prints a message
+
+
+## If Statements
+
+[If statements](https://docs.kscript.org/#If_Statement) are created with the `if` keyword. They take a conditional, a body of other statements, and then a list of clauses (`elif`, or `else` clauses)
+
+The basic control flow is:
+
+  * Evaluate the conditional expression
+  * If the conditional was truthy, evaluate the body and stop
+  * If the conditional was not truthy, go through each `elif` clause and evaluate conditionals until a truthy one is discovered. Run that body and stop
+  * If there were no `elif` clauses found with a truthy conditional, and there was an `else` clause, run the body of that `else` clause and stop
+
+
+Here are some examples:
+
+```ks
+if true {
+    print("this always runs")
+}
+
+if false {
+    print("this never runs")
+} else {
+    print("this always runs")
+}
+
+# Assume 'coinflip' is a fair function defined...
+if coinflip() {
+    print("this runs half the time")
+} else {
+    print("this runs the other half")
+}
+
+if coinflip() {
+    print("this runs half the time")
+} elif coinflip() {
+    print("this runs half of the other half (so .25 of the time)")
+} elif coinflip() {
+    print("this runs half of the other half of the other half (so .125 of the time)")
+} elif {
+    print("extremely unlikely!")
+}
+
+```
+
+
+## While Statements
+
+[While statements](https://docs.kscript.org/#While_Statement) are similar to `if` statements, except that they continually execute their body while the conditional is true.
+
+While statements also allow `elif` and `else` clauses. However, they are only checked on the first run of the conditional. If it returns false, then it works like an `if` statement. However, if the conditional was truthy on the first run, and then falsey on a subsequent run, then the `elif`/`else` clauses are not even checked.
+
+
+Here are some examples:
+
+```ks
+while true {
+    print("infinite loop")
+}
+
+while false {
+    print("never runs")
+} else {
+    print("runs once")
+}
+
+x = true
+while x {
+    print("runs once")
+    x = false
+} else {
+    print("never runs")
+}
+
+# Example showing 'elif' clause
+while true {
+    ...
+} elif false {
+    ...
+} elif other_value {
+    ...
+} else {
+    ...
+}
+
+```
+
+You can use [`break` statements](https://docs.kscript.org/#Break_Statement) and [`cont` statements](https://docs.kscript.org/#Cont_Statement) to break the current loop or continue through to the next iteration
+
+## For Statements
+
+[For statements](https://docs.kscript.org/#For_Statement) iterate over collections, and any other iterable objects. `for` loops in kscript are what some languages call `foreach`, in that they loop over collections instead of being a glorified `while` loop. They are specified with the `for` keyword, followed by an assignable expression, followed by the `in` keyword, and followed by an expression which is the iterable being looped over. Then, a body is specified to be ran for each element in the iterable. Before the body is ran, the item from the iterable is assigned to the assignable expression.
+
+
+For statements also allow `elif` and `else` clauses. However, they are only checked on the first run of the iterable. If it is empty, then it works like an `if` statement. However, if the iterable had an element on the first run, and then is empty on a subsequent run, then the `elif`/`else` clauses are not even checked.
+
+
+Here are some examples:
+
+```ks
+# Will print 1, 2, and then 3
+for x in [1, 2, 3] {
+    print(x)
+}
+
+for x in [] {
+    print("never runs")
+} else {
+    print("runs once")
+}
+
+# Example showing 'elif' clause
+for x in [] {
+    print("never runs")
+} elif false {
+    ...
+} elif true {
+    print("runs once")
+} else {
+    ...
+}
+
+```
+
+You can use [`break` statements](https://docs.kscript.org/#Break_Statement) and [`cont` statements](https://docs.kscript.org/#Cont_Statement) to break the current loop or continue through to the next iteration
+
+
 
