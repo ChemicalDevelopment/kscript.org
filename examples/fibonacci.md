@@ -1,7 +1,8 @@
 ---
 layout: default
 title: Fibonacci
-parent: Tutorials
+parent: Examples
+nav_order: 10
 ---
 
 # Fibonacci
