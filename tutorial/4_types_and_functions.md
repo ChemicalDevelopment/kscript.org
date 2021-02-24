@@ -1,11 +1,11 @@
 ---
 layout: default
-title: 3. Types And Functions
+title: 4. Types And Functions
 parent: Tutorial
-nav_order: 10
+nav_order: 40
 ---
 
-# 3. Types And Functions
+# 4. Types And Functions
 
 A time comes in every programmers life when they stop running single expressions in a REPL, and begin actually writing code that other people might use. Or, at the very least, code that they themselves may re-use at some point in the future. So, programmers need to package their existing logic/code into some sort of container that can be reused, and modularized so that you can reason about things at a higher level. Enter: types and functions
 
