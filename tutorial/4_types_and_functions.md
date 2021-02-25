@@ -19,7 +19,7 @@ Custom functions are created with the `func` keyword. You can see the formal syn
 
 ```ks
 # Anonymous function, takes 0 arguments
-func () {
+func {
     # The 'ret' statement is used to return a value from the current function
     ret 42
 }
@@ -79,7 +79,7 @@ print (foo(1, 5))
 
 ## Lambdas
 
-[Lambda expressions](https://docs.kscript.org/#Lambda_Expression) are like functions, except notated more compactly. This is extremely useful for short code or short functions which would only consist of a single `ret` statement. 
+[Lambda expressions](https://docs.kscript.org/#Lambda_Expression) are like functions, except their notation is more compact. This is extremely useful for short code or short functions which would only consist of a single `ret` statement. 
 
 You can use the right arrow (`->`) to specify a lambda. It has the form `(params) -> value`, where `params` may be a single name, or a tuple literal full of the names of the lambda. `value` is the expression that is ran. This is equivalent to:
 
@@ -132,7 +132,7 @@ type MyType extends SomeOtherType {
 }
 ```
 
-Within the body (`...` in the examples). Typically, a type will want to define a few [magic attributes](https://docs.kscript.org/#Magic_Attributes). The most important one is `__init`, which has the general signature of `type.__init(self, *args)`. It takes a newly created object (`self`), and initializes it with the arguments passed to the constructor. Here's an example of a `Person` type being defined:
+Within the body (`...` in the examples), you can define type attributes and functions. Typically, a type will want to define a few [magic attributes](https://docs.kscript.org/#Magic_Attributes). The most important one is `__init`, which has the general signature of `type.__init(self, *args)`. It takes a newly created object (`self`), and initializes it with the arguments passed to the constructor. Here's an example of a `Person` type being defined:
 
 
 ```ks

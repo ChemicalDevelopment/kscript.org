@@ -90,7 +90,5 @@ The [`open`](https://docs.kscript.org/#open) function can open a file for readin
   * `w`: Opens the file for writing (and clears the file if it existed)
   * `a`: Opens the file for appending (i.e. writes to the end)
 
-
-
 TODO: This is not finished
 

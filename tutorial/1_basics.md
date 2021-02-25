@@ -136,10 +136,6 @@ In <thread 'main'>
 123
 ```
 
-## Functions
-
-
-
 
 ## Lists
 
@@ -156,6 +152,10 @@ To create a list, you begin with `[`, followed by the contents of the list, sepe
 >>> [[1, 2], [3, 4]]
 [[1, 2], [3, 4]]
 ```
+
+If you have a list, in say the `x` variable, you can add objects with `x.push(*objs)` (for example, `x.push(1)` adds `1` to the right end of the list). You can pop individual elements with `x.pop()` (which returns the right most element, and then removes it)
+
+
 
 ## Tuples
 
